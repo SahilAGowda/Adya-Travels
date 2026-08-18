@@ -24,9 +24,95 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.title = `${car.name} with Driver in Bengaluru — Adya Travels`;
   const descTag = document.getElementById('pageDesc');
-  if (descTag) descTag.setAttribute('content', `Book the ${car.name}, a chauffeur-driven ${car.category.toLowerCase()}, with Adya Travels for airport, local and outstation travel from Bengaluru.`);
+  const metaDesc = `Book the ${car.name} (${car.category}) with Adya Travels — chauffeur-driven for airport transfers, local and outstation travel from Bengaluru. ${car.tagline}`;
+  if (descTag) descTag.setAttribute('content', metaDesc);
   const mobileEnquire = document.getElementById('mobileEnquireLink');
   if (mobileEnquire) mobileEnquire.href = `index.html?prefill=${car.id}#enquire`;
+
+  /* ---------- Dynamic SEO head tags ---------- */
+  const canonicalUrl = `https://www.adyatravels.in/car.html?car=${car.id}`;
+  const carOgImage  = `https://www.adyatravels.in/${car.heroImage}`;
+  const ogTitle     = `${car.name} with Driver in Bengaluru | Adya Travels`;
+
+  const setMeta = (id, attr, val) => { const el = document.getElementById(id); if (el) el.setAttribute(attr, val); };
+  const canonical = document.getElementById('pageCanonical');
+  if (canonical) canonical.setAttribute('href', canonicalUrl);
+  setMeta('ogUrl',      'content', canonicalUrl);
+  setMeta('ogTitle',    'content', ogTitle);
+  setMeta('ogDesc',     'content', metaDesc);
+  setMeta('ogImage',    'content', carOgImage);
+  setMeta('ogImageAlt', 'content', `${car.name} — chauffeur-driven ${car.category} in Bengaluru`);
+  setMeta('twTitle',    'content', ogTitle);
+  setMeta('twDesc',     'content', metaDesc);
+  setMeta('twImage',    'content', carOgImage);
+  setMeta('pageKeywords', 'content',
+    `${car.name} hire Bengaluru, ${car.name.toLowerCase()} with driver Bangalore, ` +
+    `${car.category.toLowerCase()} Bengaluru, chauffeur driven ${car.name.toLowerCase()}, ` +
+    `${car.bestFor.join(', ')}, Adya Travels Bengaluru`);
+
+  /* ---------- Per-car JSON-LD structured data ---------- */
+  const sdTag = document.getElementById('carStructuredData');
+  if (sdTag) {
+    const localPriceValue = car.pricing && car.pricing.local ? car.pricing.local.replace(/,/g, '') : null;
+    sdTag.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": `${car.name} with Chauffeur — Adya Travels`,
+      "description": car.description,
+      "image": carOgImage,
+      "brand": { "@type": "Brand", "name": "Adya Travels" },
+      "offers": {
+        "@type": "Offer",
+        "url": canonicalUrl,
+        "priceCurrency": "INR",
+        "price": localPriceValue || "0",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": localPriceValue || "0",
+          "priceCurrency": "INR",
+          "unitText": car.priceUnit && car.priceUnit.local ? car.priceUnit.local : "per trip"
+        },
+        "availability": car.status === 'available'
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+        "seller": {
+          "@type": "LocalBusiness",
+          "name": "Adya Travels",
+          "telephone": "+91-99644-40886",
+          "areaServed": "Bengaluru, Karnataka"
+        }
+      }
+    });
+  }
+
+  /* ---------- BreadcrumbList schema ---------- */
+  const bcTag = document.createElement('script');
+  bcTag.type = 'application/ld+json';
+  bcTag.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.adyatravels.in/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Our Cars",
+        "item": "https://www.adyatravels.in/#cars"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": car.name,
+        "item": canonicalUrl
+      }
+    ]
+  });
+  document.head.appendChild(bcTag);
 
   /* ---------- Build pricing rows ---------- */
   function buildPriceRow(label, value, sub){

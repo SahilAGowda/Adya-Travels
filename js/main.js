@@ -168,6 +168,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      // Close all others
+      document.querySelectorAll('.faq-item.is-open').forEach(openItem => {
+        openItem.classList.remove('is-open');
+        openItem.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      // Toggle clicked
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
   /* ---------- Footer year ---------- */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
