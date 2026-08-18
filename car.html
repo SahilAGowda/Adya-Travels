@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="pageTitle">Our Cars — Adya Travels</title>
+<meta name="description" id="pageDesc" content="Chauffeur-driven vehicle available with Adya Travels, Bengaluru." />
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  .car-hero{ min-height: 62vh; display:flex; align-items:flex-end; background: var(--charcoal); color:var(--ivory); padding-top:120px; position:relative; overflow:hidden; }
+  .car-hero-media{ position:absolute; inset:0; }
+  .car-hero-media img{ width:100%; height:100%; object-fit:cover; opacity:.55; }
+  .car-hero-media::after{ content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,19,15,0.2) 0%, rgba(20,19,15,0.95) 100%); }
+  .car-hero-inner{ position:relative; z-index:2; padding-bottom: 56px; }
+  .breadcrumb{ font-size:13px; color: rgba(246,241,233,0.6); margin-bottom:20px; }
+  .breadcrumb a{ color: rgba(246,241,233,0.85); }
+  .gallery-wrap{ background: var(--ivory); padding-top: 32px; }
+  .gallery{ display:grid; grid-template-columns: repeat(4,1fr); gap:14px; }
+  .gallery img{ width:100%; height: 200px; object-fit:cover; border-radius: var(--radius-m); border: 3px solid var(--white); box-shadow: 0 4px 18px -6px rgba(20,19,15,0.18); transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
+  .gallery img:hover{ transform: scale(1.03); box-shadow: 0 8px 28px -8px rgba(20,19,15,0.28); }
+  @media (max-width:780px){ .gallery{ grid-template-columns: repeat(2,1fr); } .gallery img{ height:140px; } }
+  .detail-grid{ display:grid; grid-template-columns: 1.3fr 0.9fr; gap: 64px; margin-top: 64px; align-items:flex-start; }
+  @media (max-width: 940px){ .detail-grid{ grid-template-columns:1fr; gap:40px; } }
+  .use-case-list{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+  .use-case-list span{ background: var(--bronze-tint); color: var(--bronze-deep); font-size:13px; font-weight:600; padding:9px 14px; border-radius:999px; }
+  .feature-list{ display:grid; grid-template-columns: 1fr 1fr; gap:12px 20px; margin-top:18px; }
+  .feature-list li{ display:flex; align-items:center; gap:10px; font-size:14.5px; color: var(--stone-dark); }
+  .feature-list svg{ width:16px; height:16px; color: var(--bronze-deep); flex-shrink:0; }
+  .price-card{ background: var(--white); border:1px solid var(--ivory-line); padding:30px; position:sticky; top:110px; }
+  .price-card h3{ font-size:18px; margin-bottom:20px; }
+  .price-row{ display:flex; justify-content:space-between; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--ivory-line); }
+  .price-row:last-of-type{ border-bottom:none; }
+  .price-row .lbl{ font-size:14px; color:var(--stone-dark); }
+  .price-row .val{ font-family: var(--font-display); font-size:20px; }
+  .price-card .note{ font-size:12.5px; color:var(--stone); margin-top:16px; line-height:1.6; }
+  .price-card .ctas{ display:flex; flex-direction:column; gap:10px; margin-top:22px; }
+  .included-box{ background: var(--ivory-soft); border:1px solid var(--ivory-line); padding:22px; margin-top:20px; font-size:13.5px; color:var(--stone-dark); line-height:1.6; }
+  .included-box strong{ color: var(--charcoal); }
+  .not-found{ padding: 160px 0 100px; text-align:center; }
+  /* Pricing tabs */
+  .price-tabs{ display:flex; gap:6px; margin-bottom:18px; background: var(--ivory-soft); border:1px solid var(--ivory-line); border-radius: var(--radius-m); padding:4px; }
+  .price-tab{ flex:1; padding:8px 10px; font-size:13px; font-weight:600; border:none; background:transparent; border-radius: calc(var(--radius-m) - 2px); cursor:pointer; color:var(--stone-dark); transition: background .2s, color .2s; }
+  .price-tab.is-active{ background: var(--white); color: var(--bronze-deep); box-shadow: 0 1px 4px rgba(20,19,15,.10); }
+  .price-tab:hover:not(.is-active){ background: rgba(255,255,255,.5); }
+  .pricing-tab-panel{ display:none; }
+  .pricing-tab-panel.is-active{ display:block; }
+  .price-section-label{ font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--stone); margin-bottom:4px; }
+  .price-note-row{ padding:12px 0 4px; font-size:12.5px; color:var(--stone); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo"><span class="l1">ADYA</span><span class="l-rule" aria-hidden="true"></span><span class="l2">TRAVELS</span></a>
+    <nav class="nav-links hide-mobile" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="index.html#cars">Our Cars</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#why-adya">Why Adya</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#enquire">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <div class="nav-phone hide-mobile"><span class="nav-phone-label">Call to book</span><strong data-phone-display>+91 99644 40886</strong></div>
+      <a class="btn btn-primary hide-mobile" data-phone-href href="tel:+919964440886">Call Now</a>
+      <button class="hamburger hide-desktop" aria-label="Open menu"><span></span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-top">
+    <a href="index.html" class="logo" tabindex="-1">
+      <span class="l1">ADYA</span>
+      <span class="l-rule" aria-hidden="true"></span>
+      <span class="l2">TRAVELS</span>
+    </a>
+  </div>
+  <nav class="mobile-menu-links" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="index.html#cars">Our Cars</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#why-adya">Why Adya</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#enquire">Contact</a>
+  </nav>
+  <div class="mobile-menu-footer">
+    <p>Call to book</p>
+    <a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a>
+    <div class="menu-cta-row">
+      <a class="menu-cta-call" data-phone-href href="tel:">Call Now</a>
+      <a class="menu-cta-enquire" href="index.html#enquire">Enquire</a>
+    </div>
+  </div>
+</div>
+
+<main id="carContent"><!-- rendered by js/car-detail.js --></main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="logo"><span class="l1">ADYA</span><span class="l2">TRAVELS</span></a>
+      <p>Chauffeur-driven cars for comfortable local, airport and outstation travel from Bengaluru.</p>
+    </div>
+    <div><h4>Explore</h4><ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#cars">Our Cars</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#enquire">Contact</a></li>
+    </ul></div>
+    <div><h4>Legal</h4><ul>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms</a></li>
+    </ul></div>
+    <div><h4>Contact</h4><ul>
+      <li><a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a></li>
+      <li><a href="mailto:hello@adyatravels.in">hello@adyatravels.in</a></li>
+      <li>Bengaluru, Karnataka</li>
+    </ul></div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span id="year"></span> Adya Travels. All rights reserved.</span>
+    <span>Chauffeur-driven cars in Bengaluru</span>
+  </div>
+</footer>
+
+<div class="mobile-cta-bar">
+  <a class="call" data-phone-href href="tel:">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+    Call Now
+  </a>
+  <a class="enq" id="mobileEnquireLink" href="index.html#enquire">Enquire</a>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/car-detail.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
