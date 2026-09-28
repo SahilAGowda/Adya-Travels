@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-IN" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,6 +34,8 @@
 <meta name="twitter:image" content="https://www.adyatravels.in/images/og-cover.jpg" />
 
 <!-- Preconnect for external resources -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://images.unsplash.com" />
 <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
@@ -180,39 +182,84 @@
 </head>
 <body>
 
+<!-- Icon sprite — referenced with <svg class="i"><use href="#i-name"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+  <symbol id="i-seat" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M3.5 7l17 10M3.5 17l17-10M9 3.5l3 2 3-2M9 20.5l3-2 3 2"/></symbol>
+  <symbol id="i-driver" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2.5"/><path d="M12 14.5V22M9.5 12H2M14.5 12H22"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 7V4h6v3M9.5 11v5M14.5 11v5M8 20v1.5M16 20v1.5"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+  <symbol id="i-city" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4v18M19 21V11l-7-4M8.5 9v.01M8.5 12v.01M8.5 15v.01M8.5 18v.01M15.5 13v.01M15.5 16v.01"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-rupee" viewBox="0 0 24 24"><path d="M6 3h12M6 8h12M6 13l8.5 8M6 13h3a5 5 0 0 0 0-10"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></symbol>
+  <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3zM9 3v15M15 6v15"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2.7-3.4A2 2 0 0 0 13.7 6H8.3a2 2 0 0 0-1.6.8L4 10l-1.6.5C1.6 10.7 1 11.5 1 12.4V16c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+
 <!-- ========== NAV ========== -->
 <header class="nav">
-  <div class="container nav-inner">
-    <a href="index.html" class="logo">
-      <span class="l1">ADYA</span>
-      <span class="l-rule" aria-hidden="true"></span>
-      <span class="l2">TRAVELS</span>
-    </a>
-
-    <nav class="nav-links hide-mobile" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="#cars">Our Cars</a>
-      <a href="#services">Services</a>
-      <a href="#why-adya">Why Adya</a>
-      <a href="#about">About</a>
-      <a href="#enquire">Contact</a>
-    </nav>
-
-    <div class="nav-right">
-      <div class="nav-phone hide-mobile">
-        <span class="nav-phone-label">Call to book</span>
-        <strong data-phone-display>+91 99644 40886</strong>
-      </div>
-      <a class="btn btn-primary hide-mobile" data-phone-href href="tel:">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
-        Call Now
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="Adya Travels — home">
+        <span class="l1">ADYA</span>
+        <span class="l-rule" aria-hidden="true"></span>
+        <span class="l2">TRAVELS</span>
       </a>
-      <button class="hamburger hide-desktop" aria-label="Open menu" aria-expanded="false"><span></span></button>
+
+      <nav class="nav-links hide-mobile" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#cars">Our Cars</a>
+        <a href="#why-adya">Why Adya</a>
+        <a href="#areas">Coverage</a>
+        <a href="#faq">FAQ</a>
+        <a href="#enquire">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="nav-phone hide-mobile hide-tablet">
+          <span class="nav-phone-label"><span class="live-dot" aria-hidden="true"></span>Open 24/7</span>
+          <strong data-phone-display>+91 99644 40886</strong>
+        </div>
+        <a class="btn btn-primary hide-mobile" data-phone-href href="tel:+919964440886">
+          <svg class="i"><use href="#i-phone"/></svg>
+          Call Now
+        </a>
+        <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
+      </div>
     </div>
   </div>
 </header>
 
-<div class="mobile-menu" aria-hidden="true">
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <div class="mobile-menu-top">
     <a href="index.html" class="logo" tabindex="-1">
       <span class="l1">ADYA</span>
@@ -221,47 +268,140 @@
     </a>
   </div>
   <nav class="mobile-menu-links" aria-label="Mobile navigation">
-    <a href="index.html">Home</a>
-    <a href="#cars">Our Cars</a>
-    <a href="#services">Services</a>
-    <a href="#why-adya">Why Adya</a>
-    <a href="#about">About</a>
-    <a href="#enquire">Contact</a>
+    <a href="#services">Services <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="#cars">Our Cars <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="#why-adya">Why Adya <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="#areas">Coverage <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="#faq">FAQ <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="#enquire">Contact <svg class="i"><use href="#i-arrow"/></svg></a>
   </nav>
   <div class="mobile-menu-footer">
-    <p>Call to book</p>
-    <a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a>
+    <p><span class="live-dot" aria-hidden="true"></span> Available 24/7 · Call to book</p>
+    <a class="menu-phone" data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a>
     <div class="menu-cta-row">
-      <a class="menu-cta-call" data-phone-href href="tel:">Call Now</a>
-      <a class="menu-cta-enquire" href="#enquire">Enquire</a>
+      <a class="btn btn-primary" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Call</a>
+      <a class="btn btn-whatsapp" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener"><svg class="i i-fill"><use href="#i-wa"/></svg>WhatsApp</a>
     </div>
   </div>
 </div>
 
-<main>
+<main id="main">
 
   <!-- ========== HERO ========== -->
-  <section class="hero">
+  <section class="hero grain" id="top">
     <div class="hero-media" role="img" aria-label="Premium chauffeur-driven car on a highway at dusk"></div>
-    <div class="container hero-inner on-dark">
-      <div class="hero-tag"><span class="dot"></span> Based in Bengaluru · Available for local &amp; outstation travel</div>
-      <h1>Travel comfortably. Arrive <em>confidently</em>.</h1>
-      <p class="lede">Chauffeur-driven cars for airport transfers, local travel and outstation journeys from Bengaluru.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" data-phone-href href="tel:">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
-          Call Now
-        </a>
-        <a class="btn btn-outline btn-lg" href="#cars">Explore Our Cars</a>
+    <div class="hero-shade" aria-hidden="true"></div>
+
+    <div class="container hero-inner on-dark" style="background:transparent;">
+      <div class="hero-copy">
+        <div class="hero-tag fade-up d1"><span class="live-dot" aria-hidden="true"></span> Bengaluru's personal chauffeur service<span class="hide-mobile">&nbsp;· Open 24/7</span></div>
+        <h1>
+          <span class="line"><span>Travel comfortably.</span></span>
+          <span class="line"><span>Arrive <em>confidently.</em></span></span>
+        </h1>
+        <p class="lede fade-up d2">Chauffeur-driven Innova, Hycross, Vellfire and more — for airport transfers, city travel and outstation journeys from Bengaluru. One call, one clear price.</p>
+        <div class="hero-ctas fade-up d3">
+          <a class="btn btn-primary btn-lg" data-phone-href href="tel:+919964440886">
+            <svg class="i"><use href="#i-phone"/></svg>
+            Call Now
+          </a>
+          <a class="btn btn-glass btn-lg" href="#cars">
+            Explore the Fleet
+            <svg class="i i-arrow"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+
+        <div class="hero-trust fade-up d4">
+          <div class="trust-pill">
+            <span class="ic"><svg class="i i-fill"><use href="#i-star"/></svg></span>
+            <div><b>4.9 / 5</b><span>Rated by 38 travellers</span></div>
+          </div>
+          <div class="trust-pill">
+            <span class="ic"><svg class="i"><use href="#i-clock"/></svg></span>
+            <div><b>24 × 7</b><span>Incl. holidays</span></div>
+          </div>
+          <div class="trust-pill">
+            <span class="ic"><svg class="i"><use href="#i-shield"/></svg></span>
+            <div><b>No app</b><span>No advance payment</span></div>
+          </div>
+        </div>
       </div>
-      <div class="hero-stats">
-        <div class="stat"><b>5</b><span>Cars in the fleet</span></div>
-        <div class="stat"><b>Bengaluru</b><span>Home base</span></div>
-        <div class="stat"><b>Local · Airport · Outstation</b><span>Trip types covered</span></div>
+
+      <!-- Quick quote -->
+      <form class="quote-card fade-up d5" id="quickQuote" novalidate aria-labelledby="qqTitle">
+        <div class="quote-card-head">
+          <div>
+            <h2 id="qqTitle">Plan your ride</h2>
+            <p>Get an exact fare in minutes</p>
+          </div>
+          <span class="badge"><span class="live-dot" aria-hidden="true"></span> Online</span>
+        </div>
+
+        <div class="seg" role="radiogroup" aria-label="Trip type">
+          <input type="radio" name="qtrip" id="qt-airport" value="Airport Transfer" checked />
+          <label for="qt-airport"><svg class="i"><use href="#i-plane"/></svg>Airport</label>
+          <input type="radio" name="qtrip" id="qt-local" value="Local" />
+          <label for="qt-local"><svg class="i"><use href="#i-city"/></svg>Local</label>
+          <input type="radio" name="qtrip" id="qt-out" value="Outstation" />
+          <label for="qt-out"><svg class="i"><use href="#i-route"/></svg>Outstation</label>
+        </div>
+
+        <div class="qroute">
+          <div class="qfield">
+            <svg class="i"><use href="#i-pin"/></svg>
+            <div class="qf-body">
+              <label for="qPickup">Pickup</label>
+              <input id="qPickup" type="text" placeholder="e.g. Koramangala" autocomplete="off" />
+            </div>
+          </div>
+          <div class="qfield">
+            <svg class="i"><use href="#i-flag"/></svg>
+            <div class="qf-body">
+              <label for="qDrop">Drop</label>
+              <input id="qDrop" type="text" placeholder="Kempegowda Airport (BLR)" autocomplete="off" />
+            </div>
+          </div>
+          <button class="swap" type="button" aria-label="Swap pickup and drop"><svg class="i"><use href="#i-swap"/></svg></button>
+        </div>
+
+        <div class="qrow">
+          <div class="qfield">
+            <svg class="i"><use href="#i-calendar"/></svg>
+            <div class="qf-body">
+              <label for="qDate">Date</label>
+              <input id="qDate" type="date" />
+            </div>
+          </div>
+          <div class="qfield">
+            <svg class="i"><use href="#i-car"/></svg>
+            <div class="qf-body">
+              <label for="qCar">Car</label>
+              <select id="qCar" class="js-car-select"><option value="">Any car</option></select>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">
+          Get My Exact Fare
+          <svg class="i i-arrow"><use href="#i-arrow"/></svg>
+        </button>
+        <p class="quote-foot">or call <a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a></p>
+      </form>
+    </div>
+    <a class="scroll-cue" href="#services" aria-label="Scroll to services"></a>
+  </section>
+
+  <!-- ========== DESTINATION MARQUEE ========== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <div class="marquee-group">
+        <span>Kempegowda Airport</span><i></i><span>Mysuru</span><i></i><span>Coorg</span><i></i><span>Chikmagalur</span><i></i><span>Ooty</span><i></i><span>Hampi</span><i></i><span>Sakleshpur</span><i></i><span>Goa</span><i></i><span>Tirupati</span><i></i><span>Chennai</span><i></i><span>Hyderabad</span><i></i>
+      </div>
+      <div class="marquee-group">
+        <span>Kempegowda Airport</span><i></i><span>Mysuru</span><i></i><span>Coorg</span><i></i><span>Chikmagalur</span><i></i><span>Ooty</span><i></i><span>Hampi</span><i></i><span>Sakleshpur</span><i></i><span>Goa</span><i></i><span>Tirupati</span><i></i><span>Chennai</span><i></i><span>Hyderabad</span><i></i>
       </div>
     </div>
-    <div class="scroll-cue"><span class="line"></span>Scroll</div>
-  </section>
+  </div>
 
   <!-- ========== SERVICES ========== -->
   <section class="section" id="services">
@@ -269,101 +409,130 @@
       <div class="section-head reveal">
         <div>
           <span class="eyebrow">Services</span>
-          <h2 style="margin-top:16px;">Wherever the trip takes you</h2>
+          <h2>Wherever the trip <em>takes you</em></h2>
         </div>
-        <p class="lede hide-mobile">One team, one call — for a short local trip or a multi-day journey out of the city.</p>
+        <p class="lede">One team, one call — for a short local trip or a multi-day journey out of the city.</p>
       </div>
-    </div>
-    <div class="container" style="padding-left:0; padding-right:0; max-width:100%;">
-      <div class="services-grid" style="margin: 0 var(--gutter);">
-        <div class="service-card reveal">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 22h20M6 22V12l6-8 6 8v10M10 22v-6h4v6"/></svg>
-          <h3>Airport Transfers</h3>
-          <p>Reliable chauffeur-driven airport pickup and drop, timed around your flight.</p>
-        </div>
-        <div class="service-card reveal">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-          <h3>Local Travel</h3>
-          <p>Comfortable cars for meetings, errands, events and full-day travel around the city.</p>
-        </div>
-        <div class="service-card reveal">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/><path d="M4 17V7a2 2 0 0 1 2-2h8l6 6v6"/></svg>
-          <h3>Outstation</h3>
-          <p>Travel from Bengaluru to destinations across Karnataka and beyond.</p>
-        </div>
-        <div class="service-card reveal">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-          <h3>Corporate Travel</h3>
-          <p>Professional transportation for business travellers and companies.</p>
-        </div>
-        <div class="service-card reveal">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          <h3>Full-Day Hire</h3>
-          <p>Keep a chauffeur-driven car available for your schedule, for as long as you need it.</p>
-        </div>
-        <div class="service-card reveal">
-          <svg class="service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          <h3>One-Way / Round Trip</h3>
-          <p>Flexible travel options based on your journey — pay only for what you need.</p>
-        </div>
+
+      <div class="services-grid">
+        <a class="service-card reveal js-enquire-generic" data-trip="Airport Transfer" href="#enquire">
+          <div class="service-top"><span class="service-icon"><svg class="i"><use href="#i-plane"/></svg></span><span class="service-num">01</span></div>
+          <div class="service-body">
+            <h3>Airport Transfers</h3>
+            <p>Reliable pickup and drop at Kempegowda Airport, timed around your flight.</p>
+          </div>
+        </a>
+        <a class="service-card reveal js-enquire-generic" data-trip="Local" href="#enquire">
+          <div class="service-top"><span class="service-icon"><svg class="i"><use href="#i-city"/></svg></span><span class="service-num">02</span></div>
+          <div class="service-body">
+            <h3>Local Travel</h3>
+            <p>Comfortable cars for meetings, errands, events and full-day travel around the city.</p>
+          </div>
+        </a>
+        <a class="service-card reveal js-enquire-generic" data-trip="Outstation" href="#enquire">
+          <div class="service-top"><span class="service-icon"><svg class="i"><use href="#i-route"/></svg></span><span class="service-num">03</span></div>
+          <div class="service-body">
+            <h3>Outstation</h3>
+            <p>Travel from Bengaluru to destinations across Karnataka and beyond.</p>
+          </div>
+        </a>
+        <a class="service-card reveal js-enquire-generic" data-trip="Corporate" href="#enquire">
+          <div class="service-top"><span class="service-icon"><svg class="i"><use href="#i-briefcase"/></svg></span><span class="service-num">04</span></div>
+          <div class="service-body">
+            <h3>Corporate Travel</h3>
+            <p>Professional transportation for business travellers, client pickups and teams.</p>
+          </div>
+        </a>
+        <a class="service-card reveal js-enquire-generic" data-trip="Full Day" href="#enquire">
+          <div class="service-top"><span class="service-icon"><svg class="i"><use href="#i-clock"/></svg></span><span class="service-num">05</span></div>
+          <div class="service-body">
+            <h3>Full-Day Hire</h3>
+            <p>Keep a chauffeur-driven car on standby for your schedule, for as long as you need.</p>
+          </div>
+        </a>
+        <a class="service-card reveal js-enquire-generic" data-trip="One Way" href="#enquire">
+          <div class="service-top"><span class="service-icon"><svg class="i"><use href="#i-swap"/></svg></span><span class="service-num">06</span></div>
+          <div class="service-body">
+            <h3>One-Way / Round Trip</h3>
+            <p>Flexible options based on your journey — pay only for what you need.</p>
+          </div>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- ========== OUR CARS ========== -->
-  <section class="section" id="cars">
+  <section class="section bg-soft" id="cars">
     <div class="container">
       <div class="section-head reveal">
         <div>
           <span class="eyebrow">The Fleet</span>
-          <h2 class="route-underline" style="margin-top:16px;">Choose your ride</h2>
+          <h2>Choose your <em>ride</em></h2>
         </div>
-        <p class="lede hide-mobile">Comfortable, well-maintained cars with professional chauffeurs for every kind of journey.</p>
+        <p class="lede">Comfortable, well-maintained cars with professional chauffeurs for every kind of journey.</p>
       </div>
-      <p class="lede hide-desktop" style="margin-bottom:32px;">Comfortable, well-maintained cars with professional chauffeurs for every kind of journey.</p>
+
+      <div class="fleet-toolbar reveal">
+        <div class="chips" id="fleetFilters" role="group" aria-label="Filter cars by type"><!-- rendered by js/main.js --></div>
+        <p class="fleet-count hide-mobile" id="fleetCount" aria-live="polite"></p>
+      </div>
 
       <div class="cars-grid" id="carsGrid"><!-- rendered by js/main.js from js/data.js --></div>
+      <p class="fleet-count" style="margin-top:16px;display:flex;align-items:center;gap:6px;font-size:12.5px;"><svg class="i" style="width:14px;height:14px"><use href="#i-info"/></svg>Starting rates shown. Final fare depends on route, distance, duration and trip requirements.</p>
+      <div class="fleet-empty" id="fleetEmpty">No cars in this category right now — <a href="#enquire" class="btn-link">ask us about availability</a></div>
 
-      <div class="fleet-note reveal">
-        <p><strong>More vehicles, added regularly.</strong> Adya Travels is steadily growing its fleet with additional premium and comfortable cars. Call us to check what's available for your exact travel dates.</p>
-        <a class="btn btn-outline" data-phone-href href="tel:">Ask About Availability</a>
-      </div>
     </div>
   </section>
 
   <!-- ========== WHY ADYA (dark) ========== -->
-  <section class="section on-dark" id="why-adya">
+  <section class="section on-dark why-section grain" id="why-adya">
     <div class="container">
+      <div class="stats reveal" id="stats">
+        <div class="stat"><b data-count="5">5</b><span>Cars in our own fleet</span></div>
+        <div class="stat"><b><span data-count="24">24</span><sup>/7</sup></b><span>Available, incl. holidays</span></div>
+        <div class="stat"><b data-count="17">17</b><span>Seats in our largest coach</span></div>
+        <div class="stat"><b><span data-count="4.9" data-decimals="1">4.9</span><sup>★</sup></b><span>Average traveller rating</span></div>
+      </div>
+
       <div class="section-head reveal">
         <div>
           <span class="eyebrow">Why Adya Travels</span>
-          <h2 style="margin-top:16px;">A personal alternative to booking apps</h2>
+          <h2>A personal alternative to <em>booking apps</em></h2>
         </div>
+        <p class="lede">You speak to people who know the car, the chauffeur and the road — not a surge-pricing algorithm.</p>
       </div>
-      <div class="trust-grid">
-        <div class="trust-item reveal">
-          <span class="trust-num">01</span>
-          <div><h3>Professional Chauffeurs</h3><p>Experienced and courteous drivers focused on a comfortable, unhurried journey.</p></div>
+
+      <div class="bento">
+        <div class="bento-item wide reveal">
+          <span class="num">01</span>
+          <span class="ic"><svg class="i"><use href="#i-driver"/></svg></span>
+          <h3>Professional chauffeurs</h3>
+          <p>Experienced, courteous drivers who know Bengaluru's roads and Karnataka's highways — focused on an unhurried, comfortable ride.</p>
         </div>
-        <div class="trust-item reveal">
-          <span class="trust-num">02</span>
-          <div><h3>Comfortable Cars</h3><p>A carefully selected fleet suitable for local trips and long-distance travel alike.</p></div>
+        <div class="bento-item wide reveal">
+          <span class="num">02</span>
+          <span class="ic"><svg class="i"><use href="#i-rupee"/></svg></span>
+          <h3>Transparent pricing</h3>
+          <p>Clear starting rates published on every car, and an exact quote for your actual journey before you commit. No surge.</p>
         </div>
-        <div class="trust-item reveal">
-          <span class="trust-num">03</span>
-          <div><h3>Transparent Pricing</h3><p>Clear starting rates, with an exact quote based on your actual journey.</p></div>
+        <div class="bento-item reveal">
+          <span class="num">03</span>
+          <span class="ic"><svg class="i"><use href="#i-car"/></svg></span>
+          <h3>Comfortable cars</h3>
+          <p>A carefully kept fleet, suited to short city hops and long highway days alike.</p>
         </div>
-        <div class="trust-item reveal">
-          <span class="trust-num">04</span>
-          <div><h3>Flexible Travel</h3><p>From a quick airport transfer to a multi-day outstation trip.</p></div>
+        <div class="bento-item reveal">
+          <span class="num">04</span>
+          <span class="ic"><svg class="i"><use href="#i-route"/></svg></span>
+          <h3>Flexible travel</h3>
+          <p>From a quick airport drop to a multi-day outstation trip.</p>
         </div>
-        <div class="trust-item reveal">
-          <span class="trust-num">05</span>
-          <div><h3>Bengaluru Based</h3><p>Conveniently based in the city, and available for journeys well beyond it.</p></div>
-        </div>
-        <div class="trust-item reveal">
-          <span class="trust-num">06</span>
-          <div><h3>Personal Service</h3><p>Speak directly with our team instead of navigating a complicated booking platform.</p></div>
+        <div class="bento-item feature reveal">
+          <span class="num">05</span>
+          <span class="ic"><svg class="i"><use href="#i-headset"/></svg></span>
+          <h3>Personal service</h3>
+          <p>Speak directly to our team — any hour of the day.</p>
+          <a class="btn btn-dark btn-sm" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Talk to us</a>
         </div>
       </div>
     </div>
@@ -372,27 +541,27 @@
   <!-- ========== HOW IT WORKS ========== -->
   <section class="section">
     <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="eyebrow">The Process</span>
-          <h2 style="margin-top:16px;">Three calls, not three logins</h2>
-        </div>
+      <div class="section-head center reveal">
+        <span class="eyebrow">The Process</span>
+        <h2>Three steps, <em>zero logins</em></h2>
+        <p class="lede">No app to download, no account to create and no card to add.</p>
       </div>
-      <div class="steps">
-        <div class="step reveal">
-          <div class="step-num"><span class="waypoint"></span>01</div>
+      <div class="steps reveal" id="steps">
+        <span class="steps-line" aria-hidden="true"></span>
+        <div class="step">
+          <div class="step-num"><svg class="i"><use href="#i-car"/></svg></div>
           <h3>Choose your car</h3>
-          <p>Explore our fleet and select the vehicle that fits your journey and party size.</p>
+          <p>Explore the fleet and pick the vehicle that fits your journey and party size.</p>
         </div>
-        <div class="step reveal">
-          <div class="step-num"><span class="waypoint"></span>02</div>
-          <h3>Tell us about your trip</h3>
-          <p>Share your pickup location, destination, date and any requirements.</p>
+        <div class="step">
+          <div class="step-num"><svg class="i"><use href="#i-message"/></svg></div>
+          <h3>Share your trip</h3>
+          <p>Tell us your pickup, destination, date and any special requirements.</p>
         </div>
-        <div class="step reveal">
-          <div class="step-num"><span class="waypoint"></span>03</div>
-          <h3>Talk to us &amp; confirm</h3>
-          <p>Our team discusses the trip, gives you the exact price, and confirms your booking.</p>
+        <div class="step">
+          <div class="step-num"><svg class="i"><use href="#i-check"/></svg></div>
+          <h3>Confirm &amp; ride</h3>
+          <p>We call you with the exact price and confirm your chauffeur. Pay the driver directly.</p>
         </div>
       </div>
     </div>
@@ -404,54 +573,59 @@
       <div class="section-head reveal">
         <div>
           <span class="eyebrow">Start In Bengaluru</span>
-          <h2 style="margin-top:16px;">Go wherever your journey takes you</h2>
+          <h2>Go wherever your <em>journey</em> takes you</h2>
         </div>
-        <p class="lede hide-mobile">From airport transfers within Bengaluru to comfortable outstation journeys across Karnataka and beyond, Adya Travels pairs you with a professional chauffeur and the right vehicle.</p>
+        <p class="lede">From airport runs inside the city to relaxed trips across Karnataka and beyond — the right car and a professional chauffeur, every time.</p>
       </div>
       <div class="journey-grid">
         <a class="journey-card reveal js-enquire-generic" data-trip="Airport Transfer" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1200&auto=format&fit=crop" alt="Airport terminal drop-off" loading="lazy" />
-          <div class="journey-content"><h3>Airport</h3><p>Airport pickup and drop, timed to your flight.</p></div>
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1400&auto=format&fit=crop" alt="Aircraft wing above the clouds" loading="lazy" />
+          <span class="journey-label tag"><svg class="i" style="width:13px;height:13px"><use href="#i-plane"/></svg>Most requested</span>
+          <div class="journey-content"><div><h3>Airport</h3><p>Pickup and drop at Kempegowda Airport, timed to your flight.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Local" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1200&auto=format&fit=crop" alt="City street in Bengaluru" loading="lazy" />
-          <div class="journey-content"><h3>Local Bengaluru</h3><p>Comfortable chauffeur-driven travel around the city.</p></div>
+          <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=900&auto=format&fit=crop" alt="City street at night" loading="lazy" />
+          <div class="journey-content"><div><h3>Local Bengaluru</h3><p>Comfortable travel around the city.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Outstation" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=1200&auto=format&fit=crop" alt="Highway leading out of the city toward hills" loading="lazy" />
-          <div class="journey-content"><h3>Outstation</h3><p>Travel from Bengaluru to destinations across Karnataka and beyond.</p></div>
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=900&auto=format&fit=crop" alt="Road winding toward green hills" loading="lazy" />
+          <div class="journey-content"><div><h3>Outstation</h3><p>Karnataka and beyond.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Corporate" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=1200&auto=format&fit=crop" alt="Business district office towers" loading="lazy" />
-          <div class="journey-content"><h3>Corporate</h3><p>Professional transportation for meetings and business travel.</p></div>
+          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=900&auto=format&fit=crop" alt="Modern office interior" loading="lazy" />
+          <div class="journey-content"><div><h3>Corporate</h3><p>Meetings and business travel.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Full Day" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1200&auto=format&fit=crop" alt="Car parked and waiting, ready for a full day's schedule" loading="lazy" />
-          <div class="journey-content"><h3>Full-Day Travel</h3><p>Keep a vehicle and chauffeur available for your schedule.</p></div>
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=900&auto=format&fit=crop" alt="Car waiting on a city road" loading="lazy" />
+          <div class="journey-content"><div><h3>Full-Day</h3><p>A car on standby for your schedule.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="One Way" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1200&auto=format&fit=crop" alt="Road stretching toward the horizon" loading="lazy" />
-          <div class="journey-content"><h3>One-Way Trips</h3><p>Convenient point-to-point journeys, no return needed.</p></div>
+          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1400&auto=format&fit=crop" alt="Open highway stretching to the horizon" loading="lazy" />
+          <div class="journey-content"><div><h3>One-Way Trips</h3><p>Point-to-point journeys — no return fare needed.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
       </div>
     </div>
   </section>
 
   <!-- ========== AREAS SERVED ========== -->
-  <section class="section areas-section" id="areas">
+  <section class="section bg-soft areas-section" id="areas">
     <div class="container">
       <div class="section-head reveal">
         <div>
           <span class="eyebrow">Coverage</span>
-          <h2 style="margin-top:16px;">Cab service across Bengaluru &amp; beyond</h2>
+          <h2>Cab service across Bengaluru <em>&amp; beyond</em></h2>
         </div>
-        <p class="lede hide-mobile">We pick up from anywhere in Bengaluru and drop you wherever you need to go — whether it's across the city or across the state.</p>
+        <p class="lede">We pick up from anywhere in Bengaluru and drop you wherever you need to go. Tap a route to start an enquiry.</p>
       </div>
 
       <div class="areas-grid">
-        <div class="areas-col reveal">
-          <h3>Popular Pickup Areas in Bengaluru</h3>
-          <ul class="areas-list">
+        <div class="areas-panel reveal">
+          <div class="areas-panel-head">
+            <span class="ic"><svg class="i"><use href="#i-pin"/></svg></span>
+            <div><h3>Popular pickup areas</h3><p>Door-to-door, anywhere in the city</p></div>
+          </div>
+          <ul class="area-chips">
+            <li class="airport"><svg class="i"><use href="#i-plane"/></svg>Kempegowda Airport (BLR)</li>
             <li>Koramangala</li>
             <li>Indiranagar</li>
             <li>Whitefield</li>
@@ -467,27 +641,31 @@
             <li>MG Road</li>
             <li>Rajajinagar</li>
             <li>Malleshwaram</li>
-            <li>Kempegowda International Airport (BLR)</li>
           </ul>
         </div>
-        <div class="areas-col reveal">
-          <h3>Popular Outstation Routes from Bengaluru</h3>
-          <ul class="areas-list">
-            <li>Bengaluru → Mysuru (145 km)</li>
-            <li>Bengaluru → Coorg / Madikeri (250 km)</li>
-            <li>Bengaluru → Chikmagalur (245 km)</li>
-            <li>Bengaluru → Ooty (270 km)</li>
-            <li>Bengaluru → Hampi (340 km)</li>
-            <li>Bengaluru → Sakleshpur (210 km)</li>
-            <li>Bengaluru → Hassan (185 km)</li>
-            <li>Bengaluru → Shivamogga (275 km)</li>
-            <li>Bengaluru → Mangaluru (350 km)</li>
-            <li>Bengaluru → Udupi (390 km)</li>
-            <li>Bengaluru → Goa (570 km)</li>
-            <li>Bengaluru → Chennai (345 km)</li>
-            <li>Bengaluru → Hyderabad (570 km)</li>
-            <li>Bengaluru → Tirupati (250 km)</li>
-          </ul>
+
+        <div class="areas-panel reveal" id="routesPanel">
+          <div class="areas-panel-head">
+            <span class="ic"><svg class="i"><use href="#i-route"/></svg></span>
+            <div><h3>Popular outstation routes</h3><p>Approximate one-way distance from Bengaluru</p></div>
+          </div>
+          <div class="route-list" id="routeList">
+            <button type="button" class="route-item" data-dest="Mysuru" data-km="145"></button>
+            <button type="button" class="route-item" data-dest="Hassan" data-km="185"></button>
+            <button type="button" class="route-item" data-dest="Sakleshpur" data-km="210"></button>
+            <button type="button" class="route-item" data-dest="Chikmagalur" data-km="245"></button>
+            <button type="button" class="route-item" data-dest="Coorg / Madikeri" data-km="250"></button>
+            <button type="button" class="route-item" data-dest="Tirupati" data-km="250"></button>
+            <button type="button" class="route-item" data-dest="Ooty" data-km="270"></button>
+            <button type="button" class="route-item" data-dest="Shivamogga" data-km="275"></button>
+            <button type="button" class="route-item" data-dest="Hampi" data-km="340" data-extra></button>
+            <button type="button" class="route-item" data-dest="Chennai" data-km="345" data-extra></button>
+            <button type="button" class="route-item" data-dest="Mangaluru" data-km="350" data-extra></button>
+            <button type="button" class="route-item" data-dest="Udupi" data-km="390" data-extra></button>
+            <button type="button" class="route-item" data-dest="Goa" data-km="570" data-extra></button>
+            <button type="button" class="route-item" data-dest="Hyderabad" data-km="570" data-extra></button>
+          </div>
+          <div class="route-more"><button type="button" class="btn btn-outline btn-sm" id="routesToggle" aria-expanded="false">Show all routes <svg class="i"><use href="#i-chev-d"/></svg></button></div>
         </div>
       </div>
       <p class="areas-note reveal">Don't see your destination? <a href="#enquire">Send an enquiry</a> — we cover routes across Karnataka and neighbouring states.</p>
@@ -495,165 +673,205 @@
   </section>
 
   <!-- ========== FAQ ========== -->
-  <section class="section faq-section" id="faq" style="background: var(--ivory-soft);">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <span class="eyebrow">FAQ</span>
-          <h2 style="margin-top:16px;">Common questions about Adya Travels</h2>
+  <section class="section faq-section" id="faq">
+    <div class="container faq-layout">
+      <div class="faq-aside reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2>Questions, <em>answered</em></h2>
+        <p class="lede">Everything you need to know about booking with Adya Travels. Still unsure? We're one call away.</p>
+        <div class="help-card">
+          <div class="help-card-top">
+            <span class="avatar">A<span class="live-dot" aria-hidden="true"></span></span>
+            <div><b>Talk to the Adya team</b><span>Usually replies within minutes</span></div>
+          </div>
+          <div class="btns">
+            <a class="btn btn-primary" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Call</a>
+            <a class="btn btn-whatsapp" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener"><svg class="i i-fill"><use href="#i-wa"/></svg>WhatsApp</a>
+          </div>
         </div>
       </div>
-      <div class="faq-list" id="faqList">
 
+      <div class="faq-list" id="faqList">
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">How do I book a cab with Adya Travels in Bengaluru?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Simply call us on <a href="tel:+919964440886">+91 99644 40886</a> or fill out the <a href="#enquire">enquiry form</a> on this page. Our team will confirm your cab, share the exact fare and arrange a professional chauffeur — no app or online payment required.</p>
-          </div>
+          </div></div>
         </div>
 
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">What is the fare for a cab from Bengaluru to Kempegowda Airport?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Airport fares depend on your pickup location and vehicle. For example, the Innova Crysta starts from ₹3,500 for 8 hrs/80 km. Call us on <a href="tel:+919964440886">+91 99644 40886</a> for an exact quote based on your pickup point and flight time.</p>
-          </div>
+          </div></div>
         </div>
 
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">Does Adya Travels offer outstation cab service from Bengaluru?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Yes. We run outstation trips from Bengaluru to Mysuru, Coorg, Chikmagalur, Hampi, Ooty, Goa, Chennai and more. Outstation rates start from ₹14/km (Swift Dzire) to ₹200/km (Toyota Vellfire). Driver bata and tolls apply separately.</p>
-          </div>
+          </div></div>
         </div>
 
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">Which vehicles are available with Adya Travels?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Our fleet includes: <strong>Toyota Innova Hycross Hybrid</strong> (6+1 seats), <strong>Toyota Innova Crysta</strong> (6+1 seats), <strong>Swift Dzire</strong> (economy sedan, 4 seats), <strong>Urbania 17-Seater</strong> mini coach, and <strong>Toyota Vellfire</strong> (ultra-luxury VIP cab). All are chauffeur-driven with professional drivers.</p>
-          </div>
+          </div></div>
         </div>
 
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">Is Adya Travels available 24 hours a day?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Yes. We are available 24 hours a day, 7 days a week, including weekends and public holidays. You can call <a href="tel:+919964440886">+91 99644 40886</a> at any time to book or enquire.</p>
-          </div>
+          </div></div>
         </div>
 
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">Can I hire a full-day cab in Bengaluru?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Yes. Our full-day packages cover 8 hours and 80 km. Fares start from ₹1,900 (Swift Dzire) up to ₹20,000 (Toyota Vellfire). Extra hours and kilometres are charged at a fixed rate, confirmed before your trip.</p>
-          </div>
+          </div></div>
         </div>
 
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">Does Adya Travels provide corporate cab service?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Yes. We provide professional corporate cab service in Bengaluru for employee transfers, client pickups and executive travel. Premium vehicles like the Innova Hycross and Toyota Vellfire are ideal for corporate and business use.</p>
-          </div>
+          </div></div>
         </div>
 
         <div class="faq-item reveal">
           <button class="faq-q" aria-expanded="false">Are your drivers experienced and professional?<span class="faq-icon" aria-hidden="true"></span></button>
-          <div class="faq-a">
+          <div class="faq-a"><div>
             <p>Yes. All our chauffeurs are experienced, courteous and know Bengaluru city routes and popular outstation highways well. Your comfort and safety are their priority on every journey.</p>
-          </div>
+          </div></div>
         </div>
-
       </div>
     </div>
   </section>
 
   <!-- ========== ENQUIRY FORM ========== -->
-  <section class="section" id="enquire" style="background: var(--ivory-soft);">
+  <section class="section bg-soft" id="enquire">
     <div class="container">
-      <div class="enquiry-wrap">
-        <div class="enquiry-aside reveal">
+      <div class="enquiry-shell reveal">
+        <aside class="enquiry-aside on-dark grain">
           <span class="eyebrow">Plan Your Journey</span>
-          <h2 class="h2" style="margin-top:16px;">Send an enquiry, we'll take it from there</h2>
-          <p class="lede" style="margin-top:16px;">Tell us where you're going and we'll follow up with the exact price and a car that fits your trip. No account, no payment — just a conversation.</p>
+          <h2>Send an enquiry, we'll take it <em>from there</em></h2>
+          <p class="lede">Tell us where you're going and we'll come back with the exact price and a car that fits your trip.</p>
           <ul class="enquiry-points">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> No login or account needed</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> No online payment — pay the driver directly</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> A real person calls you back to confirm</li>
+            <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span> No login or account needed</li>
+            <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span> No online payment — pay the driver directly</li>
+            <li><span class="ck"><svg class="i"><use href="#i-check"/></svg></span> A real person confirms every booking</li>
           </ul>
-          <div style="margin-top:34px;">
-            <p style="font-size:13px; color:var(--stone); margin-bottom:10px;">Prefer to talk right away?</p>
-            <a class="btn btn-primary" data-phone-href href="tel:">Call Now</a>
+          <div class="enquiry-contact">
+            <a class="enquiry-contact-card" data-phone-href href="tel:+919964440886">
+              <span class="ic"><svg class="i"><use href="#i-phone"/></svg></span>
+              <span><small>Call us · 24/7</small><b data-phone-display>+91 99644 40886</b></span>
+              <svg class="i i-arrow"><use href="#i-arrow"/></svg>
+            </a>
+            <a class="enquiry-contact-card" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener">
+              <span class="ic wa"><svg class="i i-fill"><use href="#i-wa"/></svg></span>
+              <span><small>Chat on WhatsApp</small><b>Message us</b></span>
+              <svg class="i i-arrow"><use href="#i-arrow"/></svg>
+            </a>
           </div>
-        </div>
+        </aside>
 
-        <div class="form-card reveal">
+        <div class="form-card">
           <form id="enquiryForm" novalidate>
+            <div class="form-head">
+              <div>
+                <h3>Trip details</h3>
+                <p>Takes about a minute</p>
+              </div>
+              <div class="form-progress" aria-hidden="true"><div class="bar"><i id="formProgress"></i></div><span id="formProgressLabel">0%</span></div>
+            </div>
+
             <div class="form-grid">
               <div class="field full">
-                <label for="fullName">Full Name</label>
-                <input id="fullName" name="fullName" type="text" placeholder="Your name" required />
+                <span class="field-label" id="tripTypeLabel">Trip type</span>
+                <div class="pill-group" role="radiogroup" aria-labelledby="tripTypeLabel">
+                  <input type="radio" name="tripType" id="tt-airport" value="Airport Transfer" /><label for="tt-airport"><svg class="i"><use href="#i-plane"/></svg>Airport</label>
+                  <input type="radio" name="tripType" id="tt-local" value="Local" /><label for="tt-local"><svg class="i"><use href="#i-city"/></svg>Local</label>
+                  <input type="radio" name="tripType" id="tt-out" value="Outstation" /><label for="tt-out"><svg class="i"><use href="#i-route"/></svg>Outstation</label>
+                  <input type="radio" name="tripType" id="tt-oneway" value="One Way" /><label for="tt-oneway">One Way</label>
+                  <input type="radio" name="tripType" id="tt-round" value="Round Trip" /><label for="tt-round">Round Trip</label>
+                  <input type="radio" name="tripType" id="tt-full" value="Full Day" /><label for="tt-full">Full Day</label>
+                  <input type="radio" name="tripType" id="tt-corp" value="Corporate" /><label for="tt-corp">Corporate</label>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="fullName">Full name</label>
+                <div class="input-wrap"><svg class="i"><use href="#i-seat"/></svg><input id="fullName" name="fullName" type="text" placeholder="Your name" autocomplete="name" required /></div>
+                <span class="field-error"><svg class="i" style="width:13px;height:13px"><use href="#i-info"/></svg>Please enter your name</span>
               </div>
               <div class="field">
-                <label for="phone">Phone Number</label>
-                <input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" required />
+                <label for="phone">Phone number</label>
+                <div class="input-wrap"><svg class="i"><use href="#i-phone"/></svg><input id="phone" name="phone" type="tel" inputmode="tel" placeholder="98765 43210" autocomplete="tel" required pattern="^[+]?[0-9 ()-]{10,16}$" /></div>
+                <span class="field-error"><svg class="i" style="width:13px;height:13px"><use href="#i-info"/></svg>Enter a valid 10-digit number</span>
               </div>
               <div class="field">
-                <label for="passengers">Number of Passengers</label>
-                <input id="passengers" name="passengers" type="number" min="1" max="20" placeholder="e.g. 4" />
-              </div>
-              <div class="field">
-                <label for="pickup">Pickup Location</label>
-                <input id="pickup" name="pickup" type="text" placeholder="e.g. Koramangala" required />
+                <label for="pickup">Pickup location</label>
+                <div class="input-wrap"><svg class="i"><use href="#i-pin"/></svg><input id="pickup" name="pickup" type="text" placeholder="e.g. Koramangala" required /></div>
+                <span class="field-error"><svg class="i" style="width:13px;height:13px"><use href="#i-info"/></svg>Where should we pick you up?</span>
               </div>
               <div class="field">
                 <label for="destination">Destination</label>
-                <input id="destination" name="destination" type="text" placeholder="e.g. Kempegowda Airport" required />
+                <div class="input-wrap"><svg class="i"><use href="#i-flag"/></svg><input id="destination" name="destination" type="text" placeholder="e.g. Kempegowda Airport" required /></div>
+                <span class="field-error"><svg class="i" style="width:13px;height:13px"><use href="#i-info"/></svg>Where are you headed?</span>
               </div>
               <div class="field">
-                <label for="date">Travel Date</label>
-                <input id="date" name="date" type="date" required />
+                <label for="date">Travel date</label>
+                <div class="input-wrap"><svg class="i"><use href="#i-calendar"/></svg><input id="date" name="date" type="date" required /></div>
+                <span class="field-error"><svg class="i" style="width:13px;height:13px"><use href="#i-info"/></svg>Pick a travel date</span>
               </div>
               <div class="field">
-                <label for="time">Pickup Time</label>
-                <input id="time" name="time" type="time" required />
+                <label for="time">Pickup time</label>
+                <div class="input-wrap"><svg class="i"><use href="#i-clock"/></svg><input id="time" name="time" type="time" required /></div>
+                <span class="field-error"><svg class="i" style="width:13px;height:13px"><use href="#i-info"/></svg>Pick a pickup time</span>
               </div>
               <div class="field">
-                <label for="car">Preferred Car</label>
-                <select id="car" name="car" class="js-car-select">
-                  <option value="">Select a car</option>
-                </select>
+                <label for="car">Preferred car <span class="opt">Optional</span></label>
+                <div class="input-wrap"><svg class="i"><use href="#i-car"/></svg>
+                  <select id="car" name="car" class="js-car-select">
+                    <option value="">Select a car</option>
+                  </select>
+                </div>
               </div>
               <div class="field">
-                <label for="tripType">Trip Type</label>
-                <select id="tripType" name="tripType" class="js-trip-select">
-                  <option value="">Select trip type</option>
-                  <option>Airport Transfer</option>
-                  <option>Local</option>
-                  <option>Outstation</option>
-                  <option>One Way</option>
-                  <option>Round Trip</option>
-                  <option>Full Day</option>
-                  <option>Corporate</option>
-                  <option>Other</option>
-                </select>
+                <label for="passengers">Passengers <span class="opt">Optional</span></label>
+                <div class="stepper">
+                  <button type="button" data-step="-1" aria-label="Fewer passengers">−</button>
+                  <input id="passengers" name="passengers" type="number" min="1" max="17" value="2" inputmode="numeric" />
+                  <button type="button" data-step="1" aria-label="More passengers">+</button>
+                </div>
               </div>
               <div class="field full">
-                <label for="message">Message / Special Requirements</label>
-                <textarea id="message" name="message" placeholder="Anything else we should know about your trip"></textarea>
+                <label for="message">Message / special requirements <span class="opt">Optional</span></label>
+                <textarea id="message" name="message" placeholder="Flight number, luggage, child seat, multiple stops…"></textarea>
               </div>
             </div>
             <div class="form-foot">
-              <p>By submitting, you agree to be contacted by Adya Travels about your enquiry.</p>
-              <button type="submit" class="btn btn-primary btn-lg">Send Enquiry</button>
+              <button type="submit" class="btn btn-primary btn-lg">
+                <svg class="i i-fill"><use href="#i-wa"/></svg>
+                Send Enquiry on WhatsApp
+              </button>
+              <p><svg class="i"><use href="#i-lock"/></svg>Your details are only used to contact you about this trip.</p>
             </div>
           </form>
 
-          <div class="form-success" id="formSuccess">
-            <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>
-            <h3>Thanks for contacting Adya Travels.</h3>
-            <p>We've received your enquiry and will get back to you shortly.</p>
+          <div class="form-success" id="formSuccess" role="status" aria-live="polite" tabindex="-1">
+            <div class="check"><svg class="i"><use href="#i-check"/></svg></div>
+            <h3>Almost there!</h3>
+            <p>We've opened WhatsApp with your trip details — just hit <strong>send</strong> and our team will reply with your exact fare.</p>
+            <div class="summary" id="enquirySummary"></div>
             <div class="btn-row">
-              <a class="btn btn-primary" data-phone-href href="tel:">Call Now</a>
-              <button class="btn btn-outline" id="resetEnquiry" type="button">Send Another Enquiry</button>
+              <a class="btn btn-whatsapp" id="reopenWhatsApp" href="#" target="_blank" rel="noopener"><svg class="i i-fill"><use href="#i-wa"/></svg>Open WhatsApp again</a>
+              <a class="btn btn-primary" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Call Instead</a>
             </div>
+            <button class="btn-link" id="resetEnquiry" type="button" style="margin-top:6px;">Start a new enquiry</button>
           </div>
         </div>
       </div>
@@ -661,18 +879,18 @@
   </section>
 
   <!-- ========== FINAL CTA ========== -->
-  <section class="contact-section">
-    <div class="container">
-      <span class="eyebrow" style="justify-content:center;">Get In Touch</span>
-      <h2 class="h2" style="margin-top:16px;">Let's plan your journey</h2>
-      <p class="lede">Tell us where you're going, when you're travelling and which car you'd prefer. Our team will help you arrange the right vehicle for your journey.</p>
+  <section class="contact-section grain">
+    <div class="container on-dark" style="background:transparent;">
+      <span class="eyebrow">Get In Touch</span>
+      <h2 class="h2">Let's plan your <em>journey</em></h2>
+      <p class="lede">Tell us where you're going, when you're travelling and which car you'd prefer. We'll handle the rest.</p>
       <div class="contact-phone-lockup">
         <a data-phone-href href="tel:+919964440886" data-phone-display>+91 99644 40886</a>
-        <span>Tap to call · Available daily</span>
+        <span><span class="live-dot" aria-hidden="true"></span> Tap to call · Available 24/7</span>
       </div>
       <div class="contact-ctas">
-        <a class="btn btn-primary btn-lg" data-phone-href href="tel:">Call Now</a>
-        <a class="btn btn-outline btn-lg" href="#enquire">Send an Enquiry</a>
+        <a class="btn btn-primary btn-lg" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+        <a class="btn btn-outline btn-lg" href="#enquire">Send an Enquiry <svg class="i i-arrow"><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </section>
@@ -683,49 +901,62 @@
 <footer class="footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="logo"><span class="l1">ADYA</span><span class="l2">TRAVELS</span></a>
+      <a href="index.html" class="logo"><span class="l1">ADYA</span><span class="l-rule" aria-hidden="true"></span><span class="l2">TRAVELS</span></a>
       <p>Chauffeur-driven cars for comfortable local, airport and outstation travel from Bengaluru.</p>
+      <div class="footer-social">
+        <a data-phone-href href="tel:+919964440886" aria-label="Call Adya Travels"><svg class="i"><use href="#i-phone"/></svg></a>
+        <a data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener" aria-label="WhatsApp Adya Travels"><svg class="i i-fill"><use href="#i-wa"/></svg></a>
+        <a href="mailto:hello@adyatravels.in" aria-label="Email Adya Travels"><svg class="i"><use href="#i-mail"/></svg></a>
+      </div>
     </div>
     <div>
       <h4>Explore</h4>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#cars">Our Cars</a></li>
         <li><a href="#services">Services</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#enquire">Contact</a></li>
+        <li><a href="#cars">Our Cars</a></li>
+        <li><a href="#why-adya">Why Adya</a></li>
+        <li><a href="#areas">Coverage</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </div>
     <div>
-      <h4>Legal</h4>
-      <ul>
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms</a></li>
-      </ul>
+      <h4>Our Cars</h4>
+      <ul id="footerCars"><!-- rendered by js/main.js --></ul>
     </div>
     <div>
       <h4>Contact</h4>
-      <ul>
-        <li><a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a></li>
-        <li><a href="mailto:hello@adyatravels.in">hello@adyatravels.in</a></li>
-        <li>Bengaluru, Karnataka</li>
+      <ul class="footer-contact">
+        <li><svg class="i"><use href="#i-phone"/></svg><a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a></li>
+        <li><svg class="i"><use href="#i-mail"/></svg><a href="mailto:hello@adyatravels.in">hello@adyatravels.in</a></li>
+        <li><svg class="i"><use href="#i-pin"/></svg>Bengaluru, Karnataka</li>
+        <li><svg class="i"><use href="#i-clock"/></svg>Open 24 hours, 7 days</li>
       </ul>
     </div>
   </div>
   <div class="container footer-bottom">
     <span>© <span id="year"></span> Adya Travels. All rights reserved.</span>
-    <span>Chauffeur-driven cars in Bengaluru</span>
+    <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
   </div>
+  <div class="footer-wordmark" aria-hidden="true">ADYA</div>
 </footer>
+
+<!-- ========== FLOATING ACTIONS ========== -->
+<div class="fab-stack">
+  <button class="fab fab-top" type="button" aria-label="Back to top"><svg class="i"><use href="#i-arrow-up"/></svg></button>
+  <a class="fab fab-wa" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg class="i i-fill"><use href="#i-wa"/></svg>
+    <span class="fab-tip">Chat with us</span>
+  </a>
+</div>
 
 <!-- ========== MOBILE STICKY CTA ========== -->
 <div class="mobile-cta-bar">
-  <a class="call" data-phone-href href="tel:">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
-    Call Now
-  </a>
+  <a class="call" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+  <a class="wa" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i i-fill"><use href="#i-wa"/></svg></a>
   <a class="enq" href="#enquire">Enquire</a>
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><svg class="i"><use href="#i-check"/></svg><span></span></div>
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-IN" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -34,6 +34,8 @@
 <meta name="twitter:image" id="twImage" content="https://www.adyatravels.in/images/og-cover.jpg" />
 
 <!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preconnect" href="https://images.unsplash.com" />
 <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
@@ -42,69 +44,87 @@
 
 <!-- Per-car structured data (populated by car-detail.js) -->
 <script type="application/ld+json" id="carStructuredData">{}</script>
-<style>
-  .car-hero{ min-height: 62vh; display:flex; align-items:flex-end; background: var(--charcoal); color:var(--ivory); padding-top:120px; position:relative; overflow:hidden; }
-  .car-hero-media{ position:absolute; inset:0; }
-  .car-hero-media img{ width:100%; height:100%; object-fit:cover; opacity:.55; }
-  .car-hero-media::after{ content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(20,19,15,0.2) 0%, rgba(20,19,15,0.95) 100%); }
-  .car-hero-inner{ position:relative; z-index:2; padding-bottom: 56px; }
-  .breadcrumb{ font-size:13px; color: rgba(246,241,233,0.6); margin-bottom:20px; }
-  .breadcrumb a{ color: rgba(246,241,233,0.85); }
-  .gallery-wrap{ background: var(--ivory); padding-top: 32px; }
-  .gallery{ display:grid; grid-template-columns: repeat(4,1fr); gap:14px; }
-  .gallery img{ width:100%; height: 200px; object-fit:cover; border-radius: var(--radius-m); border: 3px solid var(--white); box-shadow: 0 4px 18px -6px rgba(20,19,15,0.18); transition: transform .4s var(--ease), box-shadow .4s var(--ease); }
-  .gallery img:hover{ transform: scale(1.03); box-shadow: 0 8px 28px -8px rgba(20,19,15,0.28); }
-  @media (max-width:780px){ .gallery{ grid-template-columns: repeat(2,1fr); } .gallery img{ height:140px; } }
-  .detail-grid{ display:grid; grid-template-columns: 1.3fr 0.9fr; gap: 64px; margin-top: 64px; align-items:flex-start; }
-  @media (max-width: 940px){ .detail-grid{ grid-template-columns:1fr; gap:40px; } }
-  .use-case-list{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
-  .use-case-list span{ background: var(--bronze-tint); color: var(--bronze-deep); font-size:13px; font-weight:600; padding:9px 14px; border-radius:999px; }
-  .feature-list{ display:grid; grid-template-columns: 1fr 1fr; gap:12px 20px; margin-top:18px; }
-  .feature-list li{ display:flex; align-items:center; gap:10px; font-size:14.5px; color: var(--stone-dark); }
-  .feature-list svg{ width:16px; height:16px; color: var(--bronze-deep); flex-shrink:0; }
-  .price-card{ background: var(--white); border:1px solid var(--ivory-line); padding:30px; position:sticky; top:110px; }
-  .price-card h3{ font-size:18px; margin-bottom:20px; }
-  .price-row{ display:flex; justify-content:space-between; align-items:baseline; padding:14px 0; border-bottom:1px solid var(--ivory-line); }
-  .price-row:last-of-type{ border-bottom:none; }
-  .price-row .lbl{ font-size:14px; color:var(--stone-dark); }
-  .price-row .val{ font-family: var(--font-display); font-size:20px; }
-  .price-card .note{ font-size:12.5px; color:var(--stone); margin-top:16px; line-height:1.6; }
-  .price-card .ctas{ display:flex; flex-direction:column; gap:10px; margin-top:22px; }
-  .included-box{ background: var(--ivory-soft); border:1px solid var(--ivory-line); padding:22px; margin-top:20px; font-size:13.5px; color:var(--stone-dark); line-height:1.6; }
-  .included-box strong{ color: var(--charcoal); }
-  .not-found{ padding: 160px 0 100px; text-align:center; }
-  /* Pricing tabs */
-  .price-tabs{ display:flex; gap:6px; margin-bottom:18px; background: var(--ivory-soft); border:1px solid var(--ivory-line); border-radius: var(--radius-m); padding:4px; }
-  .price-tab{ flex:1; padding:8px 10px; font-size:13px; font-weight:600; border:none; background:transparent; border-radius: calc(var(--radius-m) - 2px); cursor:pointer; color:var(--stone-dark); transition: background .2s, color .2s; }
-  .price-tab.is-active{ background: var(--white); color: var(--bronze-deep); box-shadow: 0 1px 4px rgba(20,19,15,.10); }
-  .price-tab:hover:not(.is-active){ background: rgba(255,255,255,.5); }
-  .pricing-tab-panel{ display:none; }
-  .pricing-tab-panel.is-active{ display:block; }
-  .price-section-label{ font-size:13px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--stone); margin-bottom:4px; }
-  .price-note-row{ padding:12px 0 4px; font-size:12.5px; color:var(--stone); }
-</style>
 </head>
 <body>
 
+<!-- Icon sprite — referenced with <svg class="i"><use href="#i-name"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.28-.2-.57-.35M12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+  <symbol id="i-seat" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M3.5 7l17 10M3.5 17l17-10M9 3.5l3 2 3-2M9 20.5l3-2 3 2"/></symbol>
+  <symbol id="i-driver" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2.5"/><path d="M12 14.5V22M9.5 12H2M14.5 12H22"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><rect x="5" y="7" width="14" height="13" rx="2"/><path d="M9 7V4h6v3M9.5 11v5M14.5 11v5M8 20v1.5M16 20v1.5"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+  <symbol id="i-city" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4v18M19 21V11l-7-4M8.5 9v.01M8.5 12v.01M8.5 15v.01M8.5 18v.01M15.5 13v.01M15.5 16v.01"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M13 16l4 4 4-4"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 22V4M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1"/></symbol>
+  <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-rupee" viewBox="0 0 24 24"><path d="M6 3h12M6 8h12M6 13l8.5 8M6 13h3a5 5 0 0 0 0-10"/></symbol>
+  <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></symbol>
+  <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3zM9 3v15M15 6v15"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-chev-l" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></symbol>
+  <symbol id="i-chev-r" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></symbol>
+  <symbol id="i-chev-d" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-expand" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2.7-3.4A2 2 0 0 0 13.7 6H8.3a2 2 0 0 0-1.6.8L4 10l-1.6.5C1.6 10.7 1 11.5 1 12.4V16c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- ========== NAV ========== -->
 <header class="nav">
-  <div class="container nav-inner">
-    <a href="index.html" class="logo"><span class="l1">ADYA</span><span class="l-rule" aria-hidden="true"></span><span class="l2">TRAVELS</span></a>
-    <nav class="nav-links hide-mobile" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="index.html#cars">Our Cars</a>
-      <a href="index.html#services">Services</a>
-      <a href="index.html#why-adya">Why Adya</a>
-      <a href="index.html#about">About</a>
-      <a href="index.html#enquire">Contact</a>
-    </nav>
-    <div class="nav-right">
-      <div class="nav-phone hide-mobile"><span class="nav-phone-label">Call to book</span><strong data-phone-display>+91 99644 40886</strong></div>
-      <a class="btn btn-primary hide-mobile" data-phone-href href="tel:+919964440886">Call Now</a>
-      <button class="hamburger hide-desktop" aria-label="Open menu"><span></span></button>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="logo" aria-label="Adya Travels — home">
+        <span class="l1">ADYA</span>
+        <span class="l-rule" aria-hidden="true"></span>
+        <span class="l2">TRAVELS</span>
+      </a>
+
+      <nav class="nav-links hide-mobile" aria-label="Primary">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#cars">Our Cars</a>
+        <a href="index.html#why-adya">Why Adya</a>
+        <a href="index.html#areas">Coverage</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#enquire">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="nav-phone hide-mobile hide-tablet">
+          <span class="nav-phone-label"><span class="live-dot" aria-hidden="true"></span>Open 24/7</span>
+          <strong data-phone-display>+91 99644 40886</strong>
+        </div>
+        <a class="btn btn-primary hide-mobile" data-phone-href href="tel:+919964440886">
+          <svg class="i"><use href="#i-phone"/></svg>
+          Call Now
+        </a>
+        <button class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
+      </div>
     </div>
   </div>
 </header>
-<div class="mobile-menu" aria-hidden="true">
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
   <div class="mobile-menu-top">
     <a href="index.html" class="logo" tabindex="-1">
       <span class="l1">ADYA</span>
@@ -113,60 +133,93 @@
     </a>
   </div>
   <nav class="mobile-menu-links" aria-label="Mobile navigation">
-    <a href="index.html">Home</a>
-    <a href="index.html#cars">Our Cars</a>
-    <a href="index.html#services">Services</a>
-    <a href="index.html#why-adya">Why Adya</a>
-    <a href="index.html#about">About</a>
-    <a href="index.html#enquire">Contact</a>
+    <a href="index.html#services">Services <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="index.html#cars">Our Cars <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="index.html#why-adya">Why Adya <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="index.html#areas">Coverage <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="index.html#faq">FAQ <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a href="index.html#enquire">Contact <svg class="i"><use href="#i-arrow"/></svg></a>
   </nav>
   <div class="mobile-menu-footer">
-    <p>Call to book</p>
-    <a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a>
+    <p><span class="live-dot" aria-hidden="true"></span> Available 24/7 · Call to book</p>
+    <a class="menu-phone" data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a>
     <div class="menu-cta-row">
-      <a class="menu-cta-call" data-phone-href href="tel:">Call Now</a>
-      <a class="menu-cta-enquire" href="index.html#enquire">Enquire</a>
+      <a class="btn btn-primary" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Call</a>
+      <a class="btn btn-whatsapp" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener"><svg class="i i-fill"><use href="#i-wa"/></svg>WhatsApp</a>
     </div>
   </div>
 </div>
 
-<main id="carContent"><!-- rendered by js/car-detail.js --></main>
+<main id="main"><div id="carContent"><!-- rendered by js/car-detail.js --></div></main>
 
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
+  <img alt="" />
+  <button class="lb-close" type="button" aria-label="Close photo viewer"><svg class="i"><use href="#i-x"/></svg></button>
+  <button class="lb-prev" type="button" aria-label="Previous photo"><svg class="i"><use href="#i-chev-l"/></svg></button>
+  <button class="lb-next" type="button" aria-label="Next photo"><svg class="i"><use href="#i-chev-r"/></svg></button>
+  <span class="lb-count"></span>
+</div>
+
+<!-- ========== FOOTER ========== -->
 <footer class="footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a href="index.html" class="logo"><span class="l1">ADYA</span><span class="l2">TRAVELS</span></a>
+      <a href="index.html" class="logo"><span class="l1">ADYA</span><span class="l-rule" aria-hidden="true"></span><span class="l2">TRAVELS</span></a>
       <p>Chauffeur-driven cars for comfortable local, airport and outstation travel from Bengaluru.</p>
+      <div class="footer-social">
+        <a data-phone-href href="tel:+919964440886" aria-label="Call Adya Travels"><svg class="i"><use href="#i-phone"/></svg></a>
+        <a data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener" aria-label="WhatsApp Adya Travels"><svg class="i i-fill"><use href="#i-wa"/></svg></a>
+        <a href="mailto:hello@adyatravels.in" aria-label="Email Adya Travels"><svg class="i"><use href="#i-mail"/></svg></a>
+      </div>
     </div>
-    <div><h4>Explore</h4><ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="index.html#cars">Our Cars</a></li>
-      <li><a href="index.html#services">Services</a></li>
-      <li><a href="index.html#enquire">Contact</a></li>
-    </ul></div>
-    <div><h4>Legal</h4><ul>
-      <li><a href="#">Privacy Policy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul></div>
-    <div><h4>Contact</h4><ul>
-      <li><a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a></li>
-      <li><a href="mailto:hello@adyatravels.in">hello@adyatravels.in</a></li>
-      <li>Bengaluru, Karnataka</li>
-    </ul></div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#cars">Our Cars</a></li>
+        <li><a href="index.html#why-adya">Why Adya</a></li>
+        <li><a href="index.html#areas">Coverage</a></li>
+        <li><a href="index.html#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Our Cars</h4>
+      <ul id="footerCars"><!-- rendered by js/main.js --></ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul class="footer-contact">
+        <li><svg class="i"><use href="#i-phone"/></svg><a data-phone-href data-phone-display href="tel:+919964440886">+91 99644 40886</a></li>
+        <li><svg class="i"><use href="#i-mail"/></svg><a href="mailto:hello@adyatravels.in">hello@adyatravels.in</a></li>
+        <li><svg class="i"><use href="#i-pin"/></svg>Bengaluru, Karnataka</li>
+        <li><svg class="i"><use href="#i-clock"/></svg>Open 24 hours, 7 days</li>
+      </ul>
+    </div>
   </div>
   <div class="container footer-bottom">
     <span>© <span id="year"></span> Adya Travels. All rights reserved.</span>
-    <span>Chauffeur-driven cars in Bengaluru</span>
+    <span><a href="#">Privacy Policy</a> · <a href="#">Terms</a></span>
   </div>
+  <div class="footer-wordmark" aria-hidden="true">ADYA</div>
 </footer>
 
-<div class="mobile-cta-bar">
-  <a class="call" data-phone-href href="tel:">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
-    Call Now
+<!-- ========== FLOATING ACTIONS ========== -->
+<div class="fab-stack">
+  <button class="fab fab-top" type="button" aria-label="Back to top"><svg class="i"><use href="#i-arrow-up"/></svg></button>
+  <a class="fab fab-wa" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg class="i i-fill"><use href="#i-wa"/></svg>
+    <span class="fab-tip">Chat with us</span>
   </a>
+</div>
+
+<!-- ========== MOBILE STICKY CTA ========== -->
+<div class="mobile-cta-bar">
+  <a class="call" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+  <a class="wa" data-wa-href href="https://wa.me/919964440886" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="i i-fill"><use href="#i-wa"/></svg></a>
   <a class="enq" id="mobileEnquireLink" href="index.html#enquire">Enquire</a>
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><svg class="i"><use href="#i-check"/></svg><span></span></div>
 
 <script src="js/data.js"></script>
 <script src="js/car-detail.js"></script>
