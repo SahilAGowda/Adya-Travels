@@ -220,6 +220,17 @@
   <symbol id="i-car" viewBox="0 0 24 24"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2.7-3.4A2 2 0 0 0 13.7 6H8.3a2 2 0 0 0-1.6.8L4 10l-1.6.5C1.6 10.7 1 11.5 1 12.4V16c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 17h6"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
   <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <defs>
+    <!-- Duotone photo treatment: maps shadows to charcoal, highlights to bronze -->
+    <filter id="duotone">
+      <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 1 0"/>
+      <feComponentTransfer color-interpolation-filters="sRGB">
+        <feFuncR type="table" tableValues="0.078 0.812"/>
+        <feFuncG type="table" tableValues="0.075 0.682"/>
+        <feFuncB type="table" tableValues="0.058 0.447"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
 </svg>
 
 <a class="skip-link" href="#main">Skip to content</a>
@@ -289,7 +300,8 @@
 
   <!-- ========== HERO ========== -->
   <section class="hero grain" id="top">
-    <div class="hero-media" role="img" aria-label="Premium chauffeur-driven car on a highway at dusk"></div>
+    <canvas class="hero-canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <span class="sr-only">Premium chauffeur-driven car on a highway at night</span>
     <div class="hero-shade" aria-hidden="true"></div>
 
     <div class="container hero-inner on-dark" style="background:transparent;">
@@ -406,7 +418,7 @@
   <!-- ========== SERVICES ========== -->
   <section class="section" id="services">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head reveal" data-num="01">
         <div>
           <span class="eyebrow">Services</span>
           <h2>Wherever the trip <em>takes you</em></h2>
@@ -464,7 +476,7 @@
   <!-- ========== OUR CARS ========== -->
   <section class="section bg-soft" id="cars">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head reveal" data-num="02">
         <div>
           <span class="eyebrow">The Fleet</span>
           <h2>Choose your <em>ride</em></h2>
@@ -502,38 +514,48 @@
         <p class="lede">You speak to people who know the car, the chauffeur and the road — not a surge-pricing algorithm.</p>
       </div>
 
-      <div class="bento">
-        <div class="bento-item wide reveal">
-          <span class="num">01</span>
-          <span class="ic"><svg class="i"><use href="#i-driver"/></svg></span>
-          <h3>Professional chauffeurs</h3>
-          <p>Experienced, courteous drivers who know Bengaluru's roads and Karnataka's highways — focused on an unhurried, comfortable ride.</p>
-        </div>
-        <div class="bento-item wide reveal">
-          <span class="num">02</span>
-          <span class="ic"><svg class="i"><use href="#i-rupee"/></svg></span>
-          <h3>Transparent pricing</h3>
-          <p>Clear starting rates published on every car, and an exact quote for your actual journey before you commit. No surge.</p>
-        </div>
-        <div class="bento-item reveal">
-          <span class="num">03</span>
-          <span class="ic"><svg class="i"><use href="#i-car"/></svg></span>
-          <h3>Comfortable cars</h3>
-          <p>A carefully kept fleet, suited to short city hops and long highway days alike.</p>
-        </div>
-        <div class="bento-item reveal">
-          <span class="num">04</span>
-          <span class="ic"><svg class="i"><use href="#i-route"/></svg></span>
-          <h3>Flexible travel</h3>
-          <p>From a quick airport drop to a multi-day outstation trip.</p>
-        </div>
-        <div class="bento-item feature reveal">
-          <span class="num">05</span>
-          <span class="ic"><svg class="i"><use href="#i-headset"/></svg></span>
-          <h3>Personal service</h3>
-          <p>Speak directly to our team — any hour of the day.</p>
-          <a class="btn btn-dark btn-sm" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Talk to us</a>
-        </div>
+      <div class="stack" id="whyStack">
+        <div class="stack-wrap"><article class="stack-card reveal" style="--i:0;">
+          <span class="stack-ic"><svg class="i"><use href="#i-driver"/></svg></span>
+          <div class="stack-body">
+            <span class="stack-num">01</span>
+            <h3>Professional chauffeurs</h3>
+            <p>Experienced, courteous drivers who know Bengaluru's roads and Karnataka's highways — focused on an unhurried, comfortable ride.</p>
+          </div>
+        </article></div>
+        <div class="stack-wrap"><article class="stack-card reveal" style="--i:1;">
+          <span class="stack-ic"><svg class="i"><use href="#i-rupee"/></svg></span>
+          <div class="stack-body">
+            <span class="stack-num">02</span>
+            <h3>Transparent pricing</h3>
+            <p>Clear starting rates published on every car, and an exact quote for your actual journey before you commit. No surge.</p>
+          </div>
+        </article></div>
+        <div class="stack-wrap"><article class="stack-card reveal" style="--i:2;">
+          <span class="stack-ic"><svg class="i"><use href="#i-car"/></svg></span>
+          <div class="stack-body">
+            <span class="stack-num">03</span>
+            <h3>Comfortable cars</h3>
+            <p>A carefully kept fleet, suited to short city hops and long highway days alike.</p>
+          </div>
+        </article></div>
+        <div class="stack-wrap"><article class="stack-card reveal" style="--i:3;">
+          <span class="stack-ic"><svg class="i"><use href="#i-route"/></svg></span>
+          <div class="stack-body">
+            <span class="stack-num">04</span>
+            <h3>Flexible travel</h3>
+            <p>From a quick airport drop to a multi-day outstation trip.</p>
+          </div>
+        </article></div>
+        <div class="stack-wrap stack-wrap-last"><article class="stack-card stack-card-feature reveal" style="--i:4;">
+          <span class="stack-ic"><svg class="i"><use href="#i-headset"/></svg></span>
+          <div class="stack-body">
+            <span class="stack-num">05</span>
+            <h3>Personal service</h3>
+            <p>Speak directly to our team — any hour of the day.</p>
+            <a class="btn btn-primary btn-sm" data-phone-href href="tel:+919964440886"><svg class="i"><use href="#i-phone"/></svg>Talk to us</a>
+          </div>
+        </article></div>
       </div>
     </div>
   </section>
@@ -541,7 +563,7 @@
   <!-- ========== HOW IT WORKS ========== -->
   <section class="section">
     <div class="container">
-      <div class="section-head center reveal">
+      <div class="section-head center reveal" data-num="03">
         <span class="eyebrow">The Process</span>
         <h2>Three steps, <em>zero logins</em></h2>
         <p class="lede">No app to download, no account to create and no card to add.</p>
@@ -579,28 +601,28 @@
       </div>
       <div class="journey-grid">
         <a class="journey-card reveal js-enquire-generic" data-trip="Airport Transfer" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1400&auto=format&fit=crop" alt="Aircraft wing above the clouds" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1400&auto=format&fit=crop" alt="Aircraft wing above the clouds" loading="lazy" style="filter:url(#duotone)" />
           <span class="journey-label tag"><svg class="i" style="width:13px;height:13px"><use href="#i-plane"/></svg>Most requested</span>
           <div class="journey-content"><div><h3>Airport</h3><p>Pickup and drop at Kempegowda Airport, timed to your flight.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Local" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=900&auto=format&fit=crop" alt="City street at night" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=900&auto=format&fit=crop" alt="City street at night" loading="lazy" style="filter:url(#duotone)" />
           <div class="journey-content"><div><h3>Local Bengaluru</h3><p>Comfortable travel around the city.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Outstation" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=900&auto=format&fit=crop" alt="Road winding toward green hills" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=900&auto=format&fit=crop" alt="Road winding toward green hills" loading="lazy" style="filter:url(#duotone)" />
           <div class="journey-content"><div><h3>Outstation</h3><p>Karnataka and beyond.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Corporate" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=900&auto=format&fit=crop" alt="Modern office interior" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=900&auto=format&fit=crop" alt="Modern office interior" loading="lazy" style="filter:url(#duotone)" />
           <div class="journey-content"><div><h3>Corporate</h3><p>Meetings and business travel.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="Full Day" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=900&auto=format&fit=crop" alt="Car waiting on a city road" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=900&auto=format&fit=crop" alt="Car waiting on a city road" loading="lazy" style="filter:url(#duotone)" />
           <div class="journey-content"><div><h3>Full-Day</h3><p>A car on standby for your schedule.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
         <a class="journey-card reveal js-enquire-generic" data-trip="One Way" href="#enquire">
-          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1400&auto=format&fit=crop" alt="Open highway stretching to the horizon" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1400&auto=format&fit=crop" alt="Open highway stretching to the horizon" loading="lazy" style="filter:url(#duotone)" />
           <div class="journey-content"><div><h3>One-Way Trips</h3><p>Point-to-point journeys — no return fare needed.</p></div><span class="journey-go"><svg class="i"><use href="#i-arrow"/></svg></span></div>
         </a>
       </div>
@@ -610,7 +632,7 @@
   <!-- ========== AREAS SERVED ========== -->
   <section class="section bg-soft areas-section" id="areas">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head reveal" data-num="04">
         <div>
           <span class="eyebrow">Coverage</span>
           <h2>Cab service across Bengaluru <em>&amp; beyond</em></h2>
@@ -959,6 +981,8 @@
 <div class="toast" id="toast" role="status" aria-live="polite"><svg class="i"><use href="#i-check"/></svg><span></span></div>
 
 <script src="js/data.js"></script>
+<script src="js/hero-scene.js"></script>
 <script src="js/main.js"></script>
+<script src="js/interact-fx.js"></script>
 </body>
 </html>

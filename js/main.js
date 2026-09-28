@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = document.querySelector('.nav');
   const progress = document.querySelector('.scroll-progress');
   const fabTop = document.querySelector('.fab-top');
-  const heroMedia = document.querySelector('.hero-media');
+  const heroMedia = document.querySelector('.hero-canvas');
   let lastY = window.scrollY;
   let ticking = false;
 
@@ -60,8 +60,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if (heroMedia && !prefersReducedMotion && y < window.innerHeight){
       heroMedia.style.transform = `translate3d(0, ${y * 0.25}px, 0) scale(1.02)`;
     }
+    updateStack();
     lastY = y;
     ticking = false;
+  }
+
+  /* ---------- "Why Adya" stacked deck: shrink + dim a card as the next one covers it ---------- */
+  const stackWraps = [...document.querySelectorAll('.stack-wrap')];
+  const STACK_STICKY_TOP = 116;
+  function updateStack(){
+    if (!stackWraps.length || prefersReducedMotion) return;
+    stackWraps.forEach((wrap) => {
+      const card = wrap.querySelector('.stack-card');
+      if (!card) return;
+      const rect = wrap.getBoundingClientRect();
+      const progress = rect.height > 0 ? 1 - Math.max(0, Math.min(1, (rect.bottom - STACK_STICKY_TOP) / rect.height)) : 0;
+      card.style.setProperty('--stack-scale', (1 - progress * 0.06).toFixed(3));
+      card.style.setProperty('--stack-bright', Math.max(0.55, 1 - progress * 0.35).toFixed(3));
+    });
   }
   window.addEventListener('scroll', () => {
     if (!ticking){ requestAnimationFrame(onScroll); ticking = true; }
