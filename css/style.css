@@ -474,19 +474,20 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
   overflow:hidden;
   padding: calc(var(--nav-h) + 48px) 0 72px;
 }
-.hero-media{
-  position:absolute; inset:-4%;
-  background: url('https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=2000&auto=format&fit=crop') center 60% / cover no-repeat;
-  animation: heroReveal 2.4s var(--ease) forwards;
+.hero-canvas{
+  position:absolute; inset:0; width:100%; height:100%;
+  display:block;
+  opacity: 0;
+  animation: heroCanvasIn 1.6s var(--ease) .15s forwards;
   will-change: transform;
 }
+@keyframes heroCanvasIn{ from{ opacity:0; } to{ opacity:1; } }
 .hero-shade{
   position:absolute; inset:0; z-index:1;
   background:
-    linear-gradient(90deg, rgba(20,19,15,.92) 0%, rgba(20,19,15,.7) 45%, rgba(20,19,15,.35) 100%),
-    linear-gradient(180deg, rgba(20,19,15,.3) 0%, transparent 30%, transparent 60%, rgba(20,19,15,.95) 100%);
+    linear-gradient(90deg, rgba(20,19,15,.85) 0%, rgba(20,19,15,.55) 45%, rgba(20,19,15,.22) 100%),
+    linear-gradient(180deg, rgba(20,19,15,.25) 0%, transparent 26%, transparent 58%, rgba(20,19,15,.96) 100%);
 }
-@keyframes heroReveal{ from{ transform: scale(1.14); opacity:.4; } to{ transform: scale(1.02); opacity:1; } }
 
 .hero-inner{
   position:relative; z-index:2;
@@ -736,6 +737,86 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
   .service-card h3{ font-size: 19px; margin-bottom: 6px; }
 }
 
+/* ---------- Flagship spotlight — a real 3D rotating showcase ---------- */
+.spotlight-section{ padding: clamp(56px, 8vw, 100px) 0; overflow: hidden; position: relative; }
+.spotlight-grid{
+  display: grid; grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.spotlight-copy h2{ margin-top: 16px; }
+.spotlight-copy .lede{ margin-top: 16px; }
+.spotlight-points{ margin-top: 26px; display:flex; flex-direction:column; gap: 12px; }
+.spotlight-points li{ display:flex; align-items:center; gap: 12px; font-size: 14.5px; color: rgba(246,241,233,.85); }
+.spotlight-points .ck{ width: 26px; height: 26px; border-radius: 50%; display:grid; place-items:center; background: rgba(176,141,82,.18); color: var(--bronze-light); flex-shrink: 0; }
+.spotlight-points .ck .i{ width: 14px; height: 14px; stroke-width: 2.5; }
+.spotlight-ctas{ display:flex; flex-wrap:wrap; gap: 12px; margin-top: 32px; }
+
+.spotlight-stage{
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-height: clamp(320px, 38vw, 440px);
+  perspective: 1600px;
+}
+.spotlight-ring{
+  position: absolute;
+  width: min(78%, 380px); aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px dashed rgba(176,141,82,.28);
+  animation: spotlightRingSpin 34s linear infinite;
+}
+.spotlight-ring-2{ width: min(60%, 290px); border-color: rgba(176,141,82,.16); animation-duration: 24s; animation-direction: reverse; }
+@keyframes spotlightRingSpin{ to{ transform: rotate(360deg); } }
+
+.spotlight-card{
+  position: relative;
+  width: min(420px, 82%);
+  border-radius: 22px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  box-shadow: 0 44px 80px -24px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.08);
+  animation: spotlightSway 7s ease-in-out infinite;
+  will-change: transform;
+  transition: transform .1s linear;
+}
+.spotlight-card:hover, .spotlight-card:focus-visible{ animation-play-state: paused; }
+.spotlight-card img{ width: 100%; display:block; pointer-events: none; }
+.spotlight-card::after{
+  /* a slow light sweep across the card, sold as reflected light on the paint */
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.22) 46%, transparent 62%);
+  background-size: 250% 250%;
+  animation: spotlightSweep 7s ease-in-out infinite;
+  mix-blend-mode: soft-light;
+}
+@keyframes spotlightSway{
+  0%, 100%{ transform: rotateY(-15deg) rotateX(3deg) translateY(0); }
+  50%{ transform: rotateY(15deg) rotateX(-2deg) translateY(-12px); }
+}
+@keyframes spotlightSweep{
+  0%, 100%{ background-position: 0% 0%; }
+  50%{ background-position: 100% 100%; }
+}
+.spotlight-shadow{
+  position: absolute; bottom: 6%;
+  width: min(320px, 60%); height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0,0,0,.6), transparent 72%);
+  animation: spotlightShadow 7s ease-in-out infinite;
+}
+@keyframes spotlightShadow{
+  0%, 100%{ transform: scaleX(1) translateX(16px); opacity: .55; }
+  50%{ transform: scaleX(.8) translateX(-16px); opacity: .32; }
+}
+@media (prefers-reduced-motion: reduce){
+  .spotlight-ring, .spotlight-ring-2, .spotlight-card, .spotlight-card::after, .spotlight-shadow{ animation: none !important; }
+  .spotlight-card{ transform: rotateY(-10deg) rotateX(2deg); }
+}
+@media (max-width: 940px){
+  .spotlight-grid{ grid-template-columns: 1fr; }
+  .spotlight-stage{ order: -1; min-height: 320px; }
+}
+
 /* ---------- Fleet ---------- */
 .fleet-toolbar{
   display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap: wrap;
@@ -781,7 +862,16 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
   display:flex; flex-direction:column;
   transition: transform .55s var(--ease), box-shadow .55s var(--ease), opacity .4s var(--ease), border-color .4s;
   position: relative;
+  transform-style: preserve-3d;
 }
+/* Tilt glare — js/interact-fx.js sets --glare-x/--glare-y while tracking the pointer */
+.car-card::after, .journey-card::after, .mini-car::after{
+  content:''; position:absolute; inset:0; z-index:3; pointer-events:none; border-radius:inherit;
+  background: radial-gradient(circle at var(--glare-x,50%) var(--glare-y,-20%), rgba(255,255,255,.5), transparent 45%);
+  opacity: 0; transition: opacity .4s var(--ease);
+  mix-blend-mode: soft-light;
+}
+.car-card:hover::after, .journey-card:hover::after, .mini-car:hover::after{ opacity: 1; }
 .car-card:hover{ transform: translateY(-8px); box-shadow: var(--shadow-l); border-color: rgba(176,141,82,.3); }
 .car-card.is-hidden{ display:none; }
 .car-card.is-entering{ animation: cardIn .6s var(--ease) both; }
@@ -919,6 +1009,47 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
 .stat b{ display:block; font-family: var(--font-display); font-weight: 400; font-size: clamp(38px, 5vw, 60px); line-height:1; color: var(--ivory); letter-spacing: -.02em; }
 .stat b sup{ font-size: .45em; color: var(--bronze-light); vertical-align: super; margin-left: 2px; }
 .stat > span{ display:block; margin-top: 10px; font-size: 13.5px; color: rgba(246,241,233,.6); }
+
+/* Split-flap / odometer digits — js/main.js rolls each tile through a
+   few random digits before landing on the real number. Genuine 3D:
+   each tile is a rotateX(180deg) card with two backface-hidden faces. */
+.flip-wrap{ display: inline-flex; align-items: flex-start; }
+.flip-group{ display: inline-flex; gap: 3px; }
+.flip-tile{
+  position: relative;
+  width: 0.62em; height: 1.08em;
+  perspective: 240px;
+  font-variant-numeric: tabular-nums;
+}
+.flip-static{
+  display: inline-block;
+  width: 0.34em;
+  text-align: center;
+  transform: translateY(-0.02em);
+}
+.flip-card{
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .32s cubic-bezier(.5,0,.5,1);
+  border-radius: 4px;
+}
+.flip-face{
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  backface-visibility: hidden;
+  background: linear-gradient(180deg, rgba(246,241,233,.09), rgba(246,241,233,.03));
+  border: 1px solid rgba(246,241,233,.1);
+  border-radius: 4px;
+}
+.flip-face::after{
+  /* the seam line where a real split-flap tile hinges — echoes the route-line motif */
+  content:''; position:absolute; left:2px; right:2px; top:50%; height:1px;
+  background: rgba(20,19,15,.55);
+}
+.flip-back{ transform: rotateX(180deg); }
+@media (prefers-reduced-motion: reduce){
+  .flip-card{ transition: none; }
+}
 @media (max-width: 780px){
   .stats{ grid-template-columns: 1fr 1fr; }
   .stat:nth-child(3){ border-left: 0; }
@@ -926,59 +1057,69 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
   .stat{ padding: 22px 16px; }
 }
 
-/* ---------- Why Adya (bento) ---------- */
+/* ---------- Why Adya — a stacked deck, not a bento grid ---------- */
 .why-section{ overflow: hidden; }
 .why-section::before{
   content:''; position:absolute; left: 50%; top: -20%; width: 900px; height: 900px; transform: translateX(-50%);
   background: radial-gradient(circle, rgba(176,141,82,.12), transparent 60%); pointer-events:none;
 }
-.bento{
-  display:grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 14px;
-  position: relative;
-}
-.bento-item{
-  grid-column: span 2;
-  background: linear-gradient(180deg, rgba(246,241,233,.05), rgba(246,241,233,.02));
+
+.stack{ position: relative; }
+.stack-wrap{ height: 42vh; min-height: 240px; max-height: 340px; }
+.stack-wrap-last{ height: auto; min-height: 0; }
+
+.stack-card{
+  position: sticky;
+  top: 116px;
+  z-index: calc(var(--i) + 1);
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(30px, 4vw, 52px);
+  border-radius: 28px;
   border: 1px solid var(--charcoal-line);
-  border-radius: var(--radius-l);
-  padding: 28px;
-  position: relative; overflow: hidden;
-  transition: border-color .4s var(--ease), transform .5s var(--ease), background .4s;
+  background: linear-gradient(155deg, rgba(246,241,233,.055), rgba(246,241,233,.015));
+  box-shadow: 0 40px 70px -32px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04);
+  transform: scale(var(--stack-scale, 1));
+  filter: brightness(var(--stack-bright, 1));
+  transition: transform .12s linear, filter .12s linear, border-color .4s var(--ease);
+  will-change: transform, filter;
 }
-.bento-item:hover{ border-color: rgba(176,141,82,.45); transform: translateY(-4px); background: linear-gradient(180deg, rgba(246,241,233,.07), rgba(246,241,233,.03)); }
-.bento-item.wide{ grid-column: span 3; }
-.bento-item .ic{
-  width: 48px; height: 48px; border-radius: 14px;
-  display:grid; place-items:center;
+.stack-card:hover{ border-color: rgba(176,141,82,.4); }
+
+.stack-ic{
+  width: 68px; height: 68px; border-radius: 18px;
+  display:grid; place-items:center; flex-shrink: 0;
   background: rgba(176,141,82,.14); color: var(--bronze-light);
   border: 1px solid rgba(176,141,82,.25);
-  margin-bottom: 44px;
 }
-.bento-item .ic .i{ width:22px; height:22px; stroke-width:1.6; }
-.bento-item .num{ position:absolute; top: 28px; right: 28px; font-family: var(--font-display); font-style: italic; font-size: 14px; color: rgba(246,241,233,.35); }
-.bento-item h3{ font-size: 21px; margin-bottom: 8px; }
-.bento-item p{ color: rgba(246,241,233,0.66); font-size:14.5px; line-height:1.6; max-width: 42ch; }
-.bento-item.feature{
+.stack-ic .i{ width: 30px; height: 30px; stroke-width: 1.5; }
+
+.stack-body{ position: relative; flex: 1; min-width: 0; }
+.stack-num{
+  position: absolute; top: -6px; right: 0;
+  font-family: var(--font-display); font-style: italic; font-weight: 300;
+  font-size: clamp(48px, 6vw, 84px); line-height: 1;
+  color: rgba(246,241,233,.08);
+  pointer-events: none;
+}
+.stack-body h3{ font-size: clamp(22px, 2.4vw, 28px); margin-bottom: 10px; max-width: 20ch; }
+.stack-body p{ color: rgba(246,241,233,0.66); font-size: 15px; line-height:1.65; max-width: 52ch; }
+.stack-body .btn{ margin-top: 18px; }
+
+.stack-card-feature{
   background: var(--grad-bronze);
   border-color: transparent;
   color: var(--charcoal);
 }
-.bento-item.feature:hover{ background: var(--grad-bronze); }
-.bento-item.feature .ic{ background: rgba(20,19,15,.12); color: var(--charcoal); border-color: rgba(20,19,15,.15); }
-.bento-item.feature p{ color: rgba(20,19,15,.72); }
-.bento-item.feature .num{ color: rgba(20,19,15,.45); }
-.bento-item.feature .btn{ margin-top: 20px; }
-@media (max-width: 960px){
-  .bento{ grid-template-columns: repeat(2, 1fr); }
-  .bento-item, .bento-item.wide{ grid-column: span 1; }
-  .bento-item.feature{ grid-column: span 2; }
-}
-@media (max-width: 580px){
-  .bento{ grid-template-columns: 1fr; }
-  .bento-item, .bento-item.wide, .bento-item.feature{ grid-column: span 1; padding: 22px; }
-  .bento-item .ic{ margin-bottom: 24px; }
+.stack-card-feature .stack-ic{ background: rgba(20,19,15,.14); color: var(--charcoal); border-color: rgba(20,19,15,.18); }
+.stack-card-feature .stack-body p{ color: rgba(20,19,15,.75); }
+.stack-card-feature .stack-num{ color: rgba(20,19,15,.12); }
+
+@media (max-width: 780px){
+  .stack-wrap{ height: 50vh; min-height: 300px; }
+  .stack-card{ top: 84px; flex-direction: column; align-items: flex-start; text-align: left; gap: 18px; padding: 26px; border-radius: 22px; }
+  .stack-num{ font-size: 42px; top: -2px; }
 }
 
 /* ---------- How it works ---------- */
@@ -1052,6 +1193,8 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
   border-radius: var(--radius-l);
   background: radial-gradient(circle at 80% 10%, rgba(176,141,82,.45), transparent 60%), var(--charcoal-soft);
   isolation: isolate;
+  transition: transform .5s var(--ease);
+  transform-style: preserve-3d;
 }
 .journey-card:nth-child(1), .journey-card:nth-child(6){ grid-column: span 2; }
 .journey-card img{ color: transparent; font-size: 0; position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: transform 1.1s var(--ease); z-index:-2; }
@@ -1567,6 +1710,58 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
 }
 .on-dark .badge-chip{ background: rgba(176,141,82,.18); color: var(--bronze-light); }
 
+/* ============================================================
+   Custom cursor — a leading dot, a trailing ring. Desktop only;
+   js/interact-fx.js adds the .cx-active class and the two nodes.
+   ============================================================ */
+html.cx-active, html.cx-active a, html.cx-active button{ cursor: none; }
+html.cx-active input, html.cx-active textarea, html.cx-active select{ cursor: auto; }
+.cx-dot, .cx-ring{
+  position: fixed; top:0; left:0; z-index: 950;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+  will-change: transform;
+}
+.cx-dot{
+  width: 7px; height: 7px; margin: -3.5px;
+  border-radius: 50%;
+  background: var(--bronze);
+}
+.cx-ring{
+  width: 34px; height: 34px; margin: -17px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(176,141,82,.55);
+  transition: opacity .3s var(--ease), width .3s var(--ease-spring), height .3s var(--ease-spring), margin .3s var(--ease-spring), border-color .3s, background .3s;
+}
+.cx-dot.is-visible, .cx-ring.is-visible{ opacity: 1; }
+.cx-ring.is-hover{
+  width: 58px; height: 58px; margin: -29px;
+  background: rgba(176,141,82,.1);
+  border-color: var(--bronze);
+}
+.cx-ring.is-down{ width: 26px; height: 26px; margin: -13px; }
+@media (max-width: 1100px){ .cx-dot, .cx-ring{ display: none; } }
+
+/* Ghost numeral behind a section head — a quiet editorial marker */
+.section-head[data-num]{ position: relative; }
+.section-head[data-num]::before{
+  content: attr(data-num);
+  position: absolute;
+  top: -0.55em; left: -0.04em;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(90px, 13vw, 220px);
+  line-height: 1;
+  color: var(--charcoal);
+  opacity: .045;
+  pointer-events: none;
+  z-index: -1;
+  user-select: none;
+}
+.on-dark .section-head[data-num]::before{ color: var(--ivory); opacity: .05; }
+.section-head.center[data-num]::before{ left: 50%; transform: translateX(-50%); }
+
 @media (max-width: 780px){
   :root{ --nav-h: 68px; }
   .nav{ padding: 12px 0; }
@@ -1738,6 +1933,8 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
   border-radius: var(--radius-m); overflow: hidden;
   background: var(--white); border: 1px solid var(--ivory-line);
   transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+  position: relative;
+  transform-style: preserve-3d;
 }
 .mini-car:hover{ transform: translateY(-6px); box-shadow: var(--shadow-m); }
 .mini-car .media{ aspect-ratio: 16/10; overflow: hidden; background: var(--ivory-soft); }
