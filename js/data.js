@@ -19,6 +19,10 @@ const BUSINESS = {
 const CARS = [
   {
     id: "innova-hycross",
+    type: "mpv",   // used by the fleet filter: sedan | mpv | luxury | group
+    seatCount: 7,
+    luggage: "4 bags",
+    highlight: "New",
     name: "Toyota Innova Hycross Hybrid",
     category: "Premium Hybrid MPV",
     tagline: "The newest addition to the fleet — a quieter, more refined hybrid ride for airport runs and long hauls.",
@@ -53,6 +57,10 @@ const CARS = [
   },
   {
     id: "innova-crysta",
+    type: "mpv",
+    seatCount: 7,
+    luggage: "4 bags",
+    highlight: "Most booked",
     name: "Toyota Innova Crysta",
     category: "Premium 7-Seater",
     tagline: "The dependable favourite — spacious, comfortable and built for local and long-distance travel.",
@@ -88,6 +96,10 @@ const CARS = [
   },
   {
     id: "urbania-17",
+    type: "group",
+    seatCount: 17,
+    luggage: "10+ bags",
+    highlight: "",
     name: "Urbania – 17 Seater",
     category: "Luxury Mini Coach",
     tagline: "The ideal group mover — perfect for corporate events, pilgrimages and large family outings.",
@@ -122,6 +134,10 @@ const CARS = [
   },
   {
     id: "swift-dzire",
+    type: "sedan",
+    seatCount: 4,
+    luggage: "2 bags",
+    highlight: "Best value",
     name: "Swift Dzire",
     category: "Economy Sedan",
     tagline: "Smart and city-savvy — the best value option for solo travellers and couples on local and outstation runs.",
@@ -154,6 +170,10 @@ const CARS = [
   },
   {
     id: "toyota-vellfire",
+    type: "luxury",
+    seatCount: 7,
+    luggage: "3 bags",
+    highlight: "VIP",
     name: "Toyota Vellfire",
     category: "Ultra-Luxury MPV",
     tagline: "First-class on wheels — an elite, chauffeured experience for VIP guests and high-end corporate travel.",
@@ -190,6 +210,14 @@ const CARS = [
     priceUnit: { local: "/ 8 hrs · 80 km", airport: "+ parking", outstation: "" },
     status: "available"
   }
+];
+
+const FLEET_TYPES = [
+  { id: "all",    label: "All cars" },
+  { id: "sedan",  label: "Sedan" },
+  { id: "mpv",    label: "MPV · 7 seats" },
+  { id: "luxury", label: "Luxury" },
+  { id: "group",  label: "Group travel" }
 ];
 
 // Simple helpers used across pages
