@@ -165,24 +165,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ---------- Animated counters ---------- */
+  /* ---------- Stats: split-flap / odometer digits ---------- */
   const stats = document.getElementById('stats');
   if (stats){
+    // Build one flip-tile (a real rotateX 3D card) per digit, or a plain
+    // static span for punctuation like the decimal point in "4.9".
+    function buildFlipGroup(group){
+      const final = group.dataset.final;
+      group.innerHTML = '';
+      [...final].forEach((ch) => {
+        if (!/[0-9]/.test(ch)){
+          const span = document.createElement('span');
+          span.className = 'flip-static';
+          span.textContent = ch;
+          group.appendChild(span);
+          return;
+        }
+        const tile = document.createElement('span');
+        tile.className = 'flip-tile';
+        tile.innerHTML = '<span class="flip-card"><span class="flip-face flip-front"></span><span class="flip-face flip-back"></span></span>';
+        tile.dataset.digit = ch;
+        group.appendChild(tile);
+      });
+    }
+
+    // Roll a single tile through a few random digits before it lands on
+    // its real value — the classic split-flap "spin down" reveal.
+    function rollTile(tile, delay){
+      const card = tile.querySelector('.flip-card');
+      const front = tile.querySelector('.flip-front');
+      const back = tile.querySelector('.flip-back');
+      const target = tile.dataset.digit;
+      const rolls = 3 + Math.floor(Math.random() * 3);
+      const seq = Array.from({ length: rolls }, () => String(Math.floor(Math.random() * 10)));
+      seq.push(target);
+
+      if (prefersReducedMotion){ front.textContent = target; return; }
+
+      front.textContent = seq[0];
+      back.textContent = seq[1] !== undefined ? seq[1] : seq[0];
+      let idx = 0, showingFront = true;
+      setTimeout(function step(){
+        idx++;
+        if (idx >= seq.length) return;
+        showingFront = !showingFront;
+        card.style.transform = showingFront ? 'rotateX(0deg)' : 'rotateX(180deg)';
+        card.addEventListener('transitionend', function onDone(){
+          card.removeEventListener('transitionend', onDone);
+          const upcoming = seq[idx + 1];
+          if (upcoming !== undefined){
+            (showingFront ? back : front).textContent = upcoming;
+          }
+          step();
+        }, { once: true });
+      }, delay);
+    }
+
     stats.addEventListener('revealed', () => {
-      stats.querySelectorAll('[data-count]').forEach(el => {
-        const target = parseFloat(el.dataset.count);
-        const decimals = parseInt(el.dataset.decimals || '0', 10);
-        if (prefersReducedMotion){ el.textContent = target.toFixed(decimals); return; }
-        const start = performance.now();
-        const dur = 1600;
-        const tick = (now) => {
-          const t = Math.min(1, (now - start) / dur);
-          const eased = 1 - Math.pow(1 - t, 4);
-          el.textContent = (target * eased).toFixed(decimals);
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        el.textContent = (0).toFixed(decimals);
-        requestAnimationFrame(tick);
+      const groups = [...stats.querySelectorAll('.flip-group')];
+      groups.forEach(buildFlipGroup);
+      // A tiny stagger across the four stats reads as one mechanical board waking up
+      groups.forEach((group, gi) => {
+        group.querySelectorAll('.flip-tile').forEach((tile, ti) => {
+          rollTile(tile, gi * 140 + ti * 90 + 120);
+        });
       });
     }, { once: true });
   }

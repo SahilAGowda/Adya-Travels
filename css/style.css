@@ -737,6 +737,86 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
   .service-card h3{ font-size: 19px; margin-bottom: 6px; }
 }
 
+/* ---------- Flagship spotlight — a real 3D rotating showcase ---------- */
+.spotlight-section{ padding: clamp(56px, 8vw, 100px) 0; overflow: hidden; position: relative; }
+.spotlight-grid{
+  display: grid; grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+.spotlight-copy h2{ margin-top: 16px; }
+.spotlight-copy .lede{ margin-top: 16px; }
+.spotlight-points{ margin-top: 26px; display:flex; flex-direction:column; gap: 12px; }
+.spotlight-points li{ display:flex; align-items:center; gap: 12px; font-size: 14.5px; color: rgba(246,241,233,.85); }
+.spotlight-points .ck{ width: 26px; height: 26px; border-radius: 50%; display:grid; place-items:center; background: rgba(176,141,82,.18); color: var(--bronze-light); flex-shrink: 0; }
+.spotlight-points .ck .i{ width: 14px; height: 14px; stroke-width: 2.5; }
+.spotlight-ctas{ display:flex; flex-wrap:wrap; gap: 12px; margin-top: 32px; }
+
+.spotlight-stage{
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-height: clamp(320px, 38vw, 440px);
+  perspective: 1600px;
+}
+.spotlight-ring{
+  position: absolute;
+  width: min(78%, 380px); aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px dashed rgba(176,141,82,.28);
+  animation: spotlightRingSpin 34s linear infinite;
+}
+.spotlight-ring-2{ width: min(60%, 290px); border-color: rgba(176,141,82,.16); animation-duration: 24s; animation-direction: reverse; }
+@keyframes spotlightRingSpin{ to{ transform: rotate(360deg); } }
+
+.spotlight-card{
+  position: relative;
+  width: min(420px, 82%);
+  border-radius: 22px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  box-shadow: 0 44px 80px -24px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.08);
+  animation: spotlightSway 7s ease-in-out infinite;
+  will-change: transform;
+  transition: transform .1s linear;
+}
+.spotlight-card:hover, .spotlight-card:focus-visible{ animation-play-state: paused; }
+.spotlight-card img{ width: 100%; display:block; pointer-events: none; }
+.spotlight-card::after{
+  /* a slow light sweep across the card, sold as reflected light on the paint */
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.22) 46%, transparent 62%);
+  background-size: 250% 250%;
+  animation: spotlightSweep 7s ease-in-out infinite;
+  mix-blend-mode: soft-light;
+}
+@keyframes spotlightSway{
+  0%, 100%{ transform: rotateY(-15deg) rotateX(3deg) translateY(0); }
+  50%{ transform: rotateY(15deg) rotateX(-2deg) translateY(-12px); }
+}
+@keyframes spotlightSweep{
+  0%, 100%{ background-position: 0% 0%; }
+  50%{ background-position: 100% 100%; }
+}
+.spotlight-shadow{
+  position: absolute; bottom: 6%;
+  width: min(320px, 60%); height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0,0,0,.6), transparent 72%);
+  animation: spotlightShadow 7s ease-in-out infinite;
+}
+@keyframes spotlightShadow{
+  0%, 100%{ transform: scaleX(1) translateX(16px); opacity: .55; }
+  50%{ transform: scaleX(.8) translateX(-16px); opacity: .32; }
+}
+@media (prefers-reduced-motion: reduce){
+  .spotlight-ring, .spotlight-ring-2, .spotlight-card, .spotlight-card::after, .spotlight-shadow{ animation: none !important; }
+  .spotlight-card{ transform: rotateY(-10deg) rotateX(2deg); }
+}
+@media (max-width: 940px){
+  .spotlight-grid{ grid-template-columns: 1fr; }
+  .spotlight-stage{ order: -1; min-height: 320px; }
+}
+
 /* ---------- Fleet ---------- */
 .fleet-toolbar{
   display:flex; align-items:center; justify-content:space-between; gap: 16px; flex-wrap: wrap;
@@ -929,6 +1009,47 @@ em, .accent-italic{ font-style: italic; color: var(--bronze); font-family: var(-
 .stat b{ display:block; font-family: var(--font-display); font-weight: 400; font-size: clamp(38px, 5vw, 60px); line-height:1; color: var(--ivory); letter-spacing: -.02em; }
 .stat b sup{ font-size: .45em; color: var(--bronze-light); vertical-align: super; margin-left: 2px; }
 .stat > span{ display:block; margin-top: 10px; font-size: 13.5px; color: rgba(246,241,233,.6); }
+
+/* Split-flap / odometer digits — js/main.js rolls each tile through a
+   few random digits before landing on the real number. Genuine 3D:
+   each tile is a rotateX(180deg) card with two backface-hidden faces. */
+.flip-wrap{ display: inline-flex; align-items: flex-start; }
+.flip-group{ display: inline-flex; gap: 3px; }
+.flip-tile{
+  position: relative;
+  width: 0.62em; height: 1.08em;
+  perspective: 240px;
+  font-variant-numeric: tabular-nums;
+}
+.flip-static{
+  display: inline-block;
+  width: 0.34em;
+  text-align: center;
+  transform: translateY(-0.02em);
+}
+.flip-card{
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  transition: transform .32s cubic-bezier(.5,0,.5,1);
+  border-radius: 4px;
+}
+.flip-face{
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  backface-visibility: hidden;
+  background: linear-gradient(180deg, rgba(246,241,233,.09), rgba(246,241,233,.03));
+  border: 1px solid rgba(246,241,233,.1);
+  border-radius: 4px;
+}
+.flip-face::after{
+  /* the seam line where a real split-flap tile hinges — echoes the route-line motif */
+  content:''; position:absolute; left:2px; right:2px; top:50%; height:1px;
+  background: rgba(20,19,15,.55);
+}
+.flip-back{ transform: rotateX(180deg); }
+@media (prefers-reduced-motion: reduce){
+  .flip-card{ transition: none; }
+}
 @media (max-width: 780px){
   .stats{ grid-template-columns: 1fr 1fr; }
   .stat:nth-child(3){ border-left: 0; }

@@ -66,7 +66,7 @@
     });
 
     /* ---------- Real 3D tilt on cards — perspective, not a shadow trick ---------- */
-    const TILT_SEL = '.car-card, .journey-card, .mini-car';
+    const TILT_SEL = '.car-card, .journey-card, .mini-car, .spotlight-card';
     document.querySelectorAll(TILT_SEL).forEach((card) => {
       const strength = card.classList.contains('journey-card') ? 5 : 7;
       let frame = null;
