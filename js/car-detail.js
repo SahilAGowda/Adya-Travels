@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const others = CARS.filter(c => c.id !== car.id);
 
   content.innerHTML = `
-    <section class="car-hero grain">
+    <section class="car-hero grain snap-section">
       <div class="container car-hero-grid">
         <div class="reveal">
           <button class="gallery-main" type="button" aria-label="Open photo viewer">
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </section>
 
-    <section class="section">
+    <section class="section snap-section">
       <div class="container detail-grid">
         <div>
           <div class="detail-block reveal">
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </section>
 
-    <section class="section bg-soft" style="padding-top:clamp(56px,7vw,96px);">
+    <section class="section bg-soft snap-section" style="padding-top:clamp(56px,7vw,96px);">
       <div class="container">
         <div class="section-head reveal">
           <div>
@@ -289,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     </section>
 
-    <section class="contact-section grain">
+    <section class="contact-section grain snap-section">
       <div class="container on-dark" style="background:transparent;">
         <span class="eyebrow">Ready To Travel?</span>
         <h2 class="h2">Book the ${car.name}</h2>

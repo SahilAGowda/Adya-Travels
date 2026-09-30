@@ -60,9 +60,19 @@
 }
 
 *, *::before, *::after{ box-sizing: border-box; }
-html{ scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); -webkit-text-size-adjust: 100%; }
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 12px);
+  -webkit-text-size-adjust: 100%;
+  /* "Page by page" feel: each major section eases into place under the
+     nav instead of free-scrolling past it. proximity (not mandatory) so
+     sections taller than one screen — the fleet grid, FAQ, the form —
+     still scroll normally inside themselves. */
+  scroll-snap-type: y proximity;
+}
+.snap-section{ scroll-snap-align: start; scroll-snap-stop: normal; }
 @media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior: auto; }
+  html{ scroll-behavior: auto; scroll-snap-type: none; }
   *, *::before, *::after{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
